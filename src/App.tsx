@@ -18,11 +18,11 @@ function useWidgetParams() {
 type Step = "locations" | "quotes" | "done";
 
 export default function App() {
-  const { widgetKey, theme, primaryColor, hostOrigin } = useWidgetParams();
+  const { theme, primaryColor } = useWidgetParams();
 
   const [step, setStep] = useState<Step>("locations");
   const [loading, setLoading] = useState(false);
-  const [quotes, setQuotes] = useState<any[]>([]);
+  // const [quotes, setQuotes] = useState<any[]>([]);
   const [form, setForm] = useState({
     startLocation: "",
     endLocation: "",
@@ -39,7 +39,7 @@ export default function App() {
     const observer = new ResizeObserver(() => postResize());
     observer.observe(document.body);
     return () => observer.disconnect();
-  }, [step, loading, quotes]);
+  }, [step, loading]);
 
   const onChange = (key: keyof typeof form, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -115,16 +115,7 @@ export default function App() {
           <>
             <p>Top mover quotes</p>
 
-            {quotes.length === 0 ? (
-              <div className="quote-card">No quotes returned</div>
-            ) : (
-              quotes.map((quote, index) => (
-                <div className="quote-card" key={index}>
-                  <strong>{quote.name || `Mover ${index + 1}`}</strong>
-                  <div>Price: {quote.price || "N/A"}</div>
-                </div>
-              ))
-            )}
+            <div className="quote-card">No quotes returned</div>
 
             <div className="actions">
               <button>Request Email Quote</button>
