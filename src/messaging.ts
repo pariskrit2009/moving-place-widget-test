@@ -1,12 +1,13 @@
-export function postResize() {
+export function postResize(hostOrigin: string) {
   const height =
     document.querySelector("#container")?.getBoundingClientRect().height ?? 0;
+
   window.parent.postMessage(
     {
       type: "WIDGET_RESIZE",
       payload: { height: height + 20 },
     },
-    "*",
+    hostOrigin,
   );
 }
 

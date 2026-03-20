@@ -18,7 +18,7 @@ function useWidgetParams() {
 type Step = "locations" | "quotes" | "done";
 
 export default function App() {
-  const { theme, primaryColor } = useWidgetParams();
+  const { theme, primaryColor, hostOrigin } = useWidgetParams();
 
   const [step, setStep] = useState<Step>("locations");
   const [loading, setLoading] = useState(false);
@@ -35,11 +35,12 @@ export default function App() {
   }, [theme, primaryColor]);
 
   useEffect(() => {
-    postResize();
-    const observer = new ResizeObserver(() => postResize());
+    postResize(hostOrigin);
+    const observer = new ResizeObserver(() => postResize(hostOrigin));
+
     observer.observe(document.body);
     return () => observer.disconnect();
-  }, [step, loading]);
+  }, [step, loading, hostOrigin]);
 
   const onChange = (key: keyof typeof form, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -73,42 +74,43 @@ export default function App() {
   };
 
   return (
-    <div className="widget-shell">
+    <div className="widget-shell min-w-[320px]">
       <div className="card" id="container">
         <h1>Moving Place Widget</h1>
         <p>Enter move details</p>
 
         {step === "locations" && (
-          <div className="flex flex-col items-start lg:flex-row lg:items-end">
-            <div className="flex-1">
-              <label>Start location</label>
-              <input
-                value={form.startLocation}
-                onChange={(e) => onChange("startLocation", e.target.value)}
-              />
-            </div>
+          <>
+            <div className="flex flex-col gap-2 items-start min-[800px]:flex-row min-[800px]:items-end">
+              <div className="w-full">
+                <label>Start location</label>
+                <input
+                  value={form.startLocation}
+                  onChange={(e) => onChange("startLocation", e.target.value)}
+                />
+              </div>
 
-            <div className="flex-1">
-              <label>End location</label>
-              <input
-                value={form.endLocation}
-                onChange={(e) => onChange("endLocation", e.target.value)}
-              />
-            </div>
+              <div className="w-full">
+                <label>End location</label>
+                <input
+                  value={form.endLocation}
+                  onChange={(e) => onChange("endLocation", e.target.value)}
+                />
+              </div>
 
-            <div className="flex-1">
-              <label>Moving date</label>
-              <input
-                type="date"
-                value={form.movingDate}
-                onChange={(e) => onChange("movingDate", e.target.value)}
-              />
+              <div className="w-full">
+                <label>Moving date</label>
+                <input
+                  type="date"
+                  value={form.movingDate}
+                  onChange={(e) => onChange("movingDate", e.target.value)}
+                />
+              </div>
             </div>
-
             <button onClick={onContinue} disabled={loading}>
-              {loading ? "Loading quotes..." : "Continue"}
+              {loading ? "Loading quotes..." : "Find Movers"}
             </button>
-          </div>
+          </>
         )}
 
         {step === "quotes" && (
