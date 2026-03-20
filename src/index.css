@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --mp-primary: #2563eb;
+  --mp-bg: #ffffff;
+  --mp-text: #111827;
+  --mp-border: #e5e7eb;
+}
+
+:root[data-theme="dark"] {
+  --mp-bg: #111827;
+  --mp-text: #f9fafb;
+  --mp-border: #374151;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background: var(--mp-bg);
+  color: var(--mp-text);
+  font-family: Arial, sans-serif;
+}
+
+.widget-shell {
+  padding: 16px;
+}
+
+.card {
+  border: 1px solid var(--mp-border);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--mp-bg);
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--mp-border);
+  border-radius: 8px;
+}
+
+button {
+  margin-top: 16px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--mp-primary);
+  color: white;
+  cursor: pointer;
+}
+
+.quote-card {
+  border: 1px solid var(--mp-border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
