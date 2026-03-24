@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import FormSection from "@/components/form/form-section";
 import FieldError from "@/components/form/field-error";
-import { postComplete } from "@/messaging";
+import { postComplete } from "@/lib/utils/messaging";
 
 const checkoutSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
