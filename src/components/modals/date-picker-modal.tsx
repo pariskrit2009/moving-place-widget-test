@@ -1,7 +1,7 @@
-interface DatePickerModalProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
+// interface DatePickerModalProps {
+//   open: boolean;
+//   onOpenChange: (open: boolean) => void;
+// }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function DatePickerModal() {

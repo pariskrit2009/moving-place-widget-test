@@ -18,7 +18,9 @@ const additionalServices = [
 
 export default function CustomizePage() {
   const navigate = useNavigate();
-  const [selectedServices, setSelectedServices] = useState<Set<string>>(new Set());
+  const [selectedServices, setSelectedServices] = useState<Set<string>>(
+    new Set(),
+  );
 
   const toggleService = (serviceId: string) => {
     setSelectedServices((prev) => {
@@ -63,7 +65,9 @@ export default function CustomizePage() {
                     className="flex flex-col gap-1 font-normal cursor-pointer"
                   >
                     <span className="font-medium">{service.label}</span>
-                    <span className="text-sm text-gray-500">+${service.price}</span>
+                    <span className="text-sm text-gray-500">
+                      +${service.price}
+                    </span>
                   </Label>
                 </div>
               </CardContent>
@@ -75,13 +79,14 @@ export default function CustomizePage() {
       <StickyFooter>
         <div className="flex gap-2">
           <Button
-            variant="outline"
+            variant="secondary"
             onClick={() => navigate("/quote")}
             className="flex-1"
           >
             Back
           </Button>
           <Button
+            variant="secondary"
             onClick={handleContinue}
             className="flex-1"
             size="lg"
