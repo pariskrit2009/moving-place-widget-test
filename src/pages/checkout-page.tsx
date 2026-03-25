@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import WidgetLayout from "@/components/layout/widget-layout";
-import StickyFooter from "@/components/layout/sticky-footer";
+import WidgetLayout from "@/components/layout/WidgetLayout";
+import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import FormSection from "@/components/form/form-section";
-import FieldError from "@/components/form/field-error";
+import FormSection from "@/components/form/FormSection";
+import FieldError from "@/components/form/FieldError";
 import { postComplete } from "@/lib/utils/messaging";
 
 const checkoutSchema = z.object({

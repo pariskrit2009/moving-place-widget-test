@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import WidgetLayout from "@/components/layout/widget-layout";
-import StickyFooter from "@/components/layout/sticky-footer";
+import WidgetLayout from "@/components/layout/WidgetLayout";
+import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import FormSection from "@/components/form/form-section";
+import FormSection from "@/components/form/FormSection";
 import type { MoverQuote } from "@/features/quote/schema";
 
 const mockQuotes: MoverQuote[] = [

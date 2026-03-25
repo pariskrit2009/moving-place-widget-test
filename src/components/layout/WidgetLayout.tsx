@@ -1,5 +1,5 @@
-import WidgetHeader from "./widget-header";
-import StepProgress from "./step-progress";
+import WidgetHeader from "./WidgetHeader";
+import StepProgress from "./StepProgress";
 import { useWidgetState, useWidgetParams, useWidgetResize } from "@/hooks";
 
 interface WidgetLayoutProps {
