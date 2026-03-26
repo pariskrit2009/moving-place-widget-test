@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,7 @@ const additionalServices = [
 ];
 
 export default function CustomizePage() {
-  const navigate = useNavigate();
+  const { navigateWithParams } = useNavigateWithParams();
   const [selectedServices, setSelectedServices] = useState<Set<string>>(
     new Set(),
   );
@@ -35,7 +35,7 @@ export default function CustomizePage() {
   };
 
   const handleContinue = () => {
-    navigate("/customize");
+    navigateWithParams("/checkout");
   };
 
   return (
@@ -80,7 +80,7 @@ export default function CustomizePage() {
         <div className="flex gap-2">
           <Button
             variant="secondary"
-            onClick={() => navigate("/quote")}
+            onClick={() => navigateWithParams("/quote")}
             className="flex-1"
           >
             Back
