@@ -1,8 +1,4 @@
-import { useState } from "react";
 import { useNavigateWithParams } from "@/hooks";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
@@ -12,39 +8,39 @@ import { Card, CardContent } from "@/components/ui/card";
 import FormSection from "@/components/form/FormSection";
 import FieldError from "@/components/form/FieldError";
 import { postComplete } from "@/lib/utils/messaging";
-
-const checkoutSchema = z.object({
-  fullName: z.string().min(1, "Full name is required"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
-  specialInstructions: z.string().optional(),
-});
-
-type CheckoutFormData = z.infer<typeof checkoutSchema>;
+import { useSubmitBooking } from "@/features/checkout/hooks";
+import { useCheckoutForm } from "@/features/checkout/useCheckoutForm";
 
 export default function CheckoutPage() {
   const { navigateWithParams } = useNavigateWithParams();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
+  // const { selectedQuote } = useWidgetState();
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<CheckoutFormData>({
-    resolver: zodResolver(checkoutSchema),
-    defaultValues: {
-      fullName: "",
-      email: "",
-      phone: "",
-      specialInstructions: "",
-    },
-  });
+    formState: { errors, isSubmitting },
+  } = useCheckoutForm();
+  // const validateBooking = useValidateBooking();
+  const submitBooking = useSubmitBooking();
 
-  const onSubmit = async (data: CheckoutFormData) => {
-    setIsSubmitting(true);
+  const onSubmit = async () => {
     try {
-      // TODO: Call API to submit booking
-      console.log("Checkout data:", data);
+      // Validate first
+      // const validation = await validateBooking.mutateAsync(data);
+      // if (validation && !validation.valid) {
+      //   // Handle validation errors if needed
+      //   console.error("Validation failed:", validation.errors);
+      //   return;
+      // }
+
+      // Submit booking
+      // const bookingData = {
+      //   ...data,
+      //   quoteId: selectedQuote?.id || "",
+      //   selectedServices: selectedQuote?.services || [],
+      //   totalCost: selectedQuote?.price || 0,
+      // };
+
+      // await submitBooking.mutateAsync(bookingData);
 
       // Notify parent window of completion
       postComplete({ mode: "checkout" });
@@ -52,8 +48,6 @@ export default function CheckoutPage() {
       navigateWithParams("/");
     } catch (error) {
       console.error("Checkout failed:", error);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -122,11 +116,13 @@ export default function CheckoutPage() {
           <Button
             type="submit"
             onClick={handleSubmit(onSubmit)}
-            disabled={isSubmitting}
+            disabled={isSubmitting || submitBooking.isPending}
             className="flex-1"
             size="lg"
           >
-            {isSubmitting ? "Processing..." : "Complete Booking"}
+            {isSubmitting || submitBooking.isPending
+              ? "Processing..."
+              : "Complete Booking"}
           </Button>
         </div>
       </StickyFooter>

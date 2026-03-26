@@ -1,41 +1,24 @@
-import { useState } from "react";
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import FormSection from "@/components/form/FormSection";
-
-const additionalServices = [
-  { id: "packing", label: "Packing Services", price: 200 },
-  { id: "unpacking", label: "Unpacking Services", price: 150 },
-  { id: "storage", label: "Temporary Storage", price: 100 },
-  { id: "insurance", label: "Full Value Insurance", price: 250 },
-  { id: "fragile", label: "Fragile Item Handling", price: 120 },
-];
+import { useSubmitCustomization } from "@/features/customize/hooks";
+import { useCustomizeForm } from "@/features/customize/useCustomizeForm";
 
 export default function CustomizePage() {
   const { navigateWithParams } = useNavigateWithParams();
-  const [selectedServices, setSelectedServices] = useState<Set<string>>(
-    new Set(),
-  );
-
-  const toggleService = (serviceId: string) => {
-    setSelectedServices((prev) => {
-      const next = new Set(prev);
-      if (next.has(serviceId)) {
-        next.delete(serviceId);
-      } else {
-        next.add(serviceId);
-      }
-      return next;
-    });
-  };
-
-  const handleContinue = () => {
-    navigateWithParams("/checkout");
+  const { handleSubmit } = useCustomizeForm();
+  // const { data: availableServices, isLoading } = useAvailableServices(selectedQuote?.id || "");
+  const submitCustomization = useSubmitCustomization();
+  const isLoading = false;
+  const onSubmit = async () => {
+    try {
+      // await submitCustomization.mutateAsync({ ...data, quoteId: selectedQuote?.id });
+      navigateWithParams("/checkout");
+    } catch (error) {
+      console.error("Failed to submit customization:", error);
+    }
   };
 
   return (
@@ -44,36 +27,47 @@ export default function CustomizePage() {
         title="Customize Your Move"
         description="Select additional services for your move"
       >
-        <div className="space-y-3">
-          {additionalServices.map((service) => (
-            <Card
-              key={service.id}
-              className={`
-                cursor-pointer transition-all hover:shadow-md
-                ${selectedServices.has(service.id) ? "ring-2 ring-blue-600" : ""}
-              `}
-            >
-              <CardContent className="flex items-center justify-between py-4">
-                <div className="flex items-center gap-3">
-                  <Checkbox
-                    id={service.id}
-                    checked={selectedServices.has(service.id)}
-                    onCheckedChange={() => toggleService(service.id)}
-                  />
-                  <Label
-                    htmlFor={service.id}
-                    className="flex flex-col gap-1 font-normal cursor-pointer"
-                  >
-                    <span className="font-medium">{service.label}</span>
-                    <span className="text-sm text-gray-500">
-                      +${service.price}
-                    </span>
-                  </Label>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="text-center py-8">Loading services...</div>
+        ) : (
+          <div className="space-y-3">
+            {/* {availableServices && availableServices.map((service: ServiceSelection) => (
+              <Card
+                key={service.id}
+                className={`
+                  cursor-pointer transition-all hover:shadow-md
+                  ${control.watch("additionalServices")?.includes(service.id) ? "ring-2 ring-blue-600" : ""}
+                `}
+              >
+                <CardContent className="flex items-center justify-between py-4">
+                  <div className="flex items-center gap-3">
+                    <Checkbox
+                      id={service.id}
+                      checked={control.watch("additionalServices")?.includes(service.id)}
+                      onCheckedChange={() => {
+                        const current = control.watch("additionalServices") || [];
+                        if (current.includes(service.id)) {
+                          control.setValue("additionalServices", current.filter((id: string) => id !== service.id));
+                        } else {
+                          control.setValue("additionalServices", [...current, service.id]);
+                        }
+                      }}
+                    />
+                    <Label
+                      htmlFor={service.id}
+                      className="flex flex-col gap-1 font-normal cursor-pointer"
+                    >
+                      <span className="font-medium">{service.label}</span>
+                      <span className="text-sm text-gray-500">
+                        +${service.price}
+                      </span>
+                    </Label>
+                  </div>
+                </CardContent>
+              </Card>
+            ))} */}
+          </div>
+        )}
       </FormSection>
 
       <StickyFooter>
@@ -87,11 +81,14 @@ export default function CustomizePage() {
           </Button>
           <Button
             variant="secondary"
-            onClick={handleContinue}
+            onClick={handleSubmit(onSubmit)}
+            disabled={submitCustomization.isPending}
             className="flex-1"
             size="lg"
           >
-            Continue to Checkout
+            {submitCustomization.isPending
+              ? "Submitting..."
+              : "Continue to Checkout"}
           </Button>
         </div>
       </StickyFooter>

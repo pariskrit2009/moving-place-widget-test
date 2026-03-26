@@ -1,6 +1,4 @@
 import { useNavigateWithParams } from "@/hooks";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
@@ -8,10 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import FieldError from "@/components/form/FieldError";
 import FormSection from "@/components/form/FormSection";
-import {
-  locationsSchema,
-  type LocationsFormData,
-} from "@/features/locations/schema";
+import type { LocationsFormData } from "@/features/locations/schema";
+import { useLocationsForm } from "@/features/locations/hooks";
+import { useSubmitLocations } from "@/features/locations/hooks";
 
 export default function LocationsPage() {
   const { navigateWithParams } = useNavigateWithParams();
@@ -20,19 +17,16 @@ export default function LocationsPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LocationsFormData>({
-    resolver: zodResolver(locationsSchema),
-    defaultValues: {
-      startLocation: "",
-      endLocation: "",
-      movingDate: "",
-    },
-  });
+  } = useLocationsForm();
+  const submitLocations = useSubmitLocations();
 
   const onSubmit = async (data: LocationsFormData) => {
-    // TODO: Call API to fetch quotes
-    console.log("Form submitted:", data);
-    navigateWithParams("/quote");
+    try {
+      await submitLocations.mutateAsync(data);
+      navigateWithParams("/quote");
+    } catch (error) {
+      console.error("Failed to submit locations:", error);
+    }
   };
 
   return (

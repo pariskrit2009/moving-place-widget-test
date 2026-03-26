@@ -1,45 +1,31 @@
-import { useState } from "react";
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import FormSection from "@/components/form/FormSection";
-import type { MoverQuote } from "@/features/quote/schema";
-
-const mockQuotes: MoverQuote[] = [
-  {
-    id: "1",
-    company: "Swift Movers",
-    price: 800,
-    rating: 4.5,
-    services: ["Packing", "Loading", "Transport"],
-  },
-  {
-    id: "2",
-    company: "Quick Move Co",
-    price: 650,
-    rating: 4.2,
-    services: ["Loading", "Transport"],
-  },
-  {
-    id: "3",
-    company: "Premium Relocations",
-    price: 1200,
-    rating: 4.8,
-    services: ["Full Service", "Packing", "Loading", "Transport", "Unpacking"],
-  },
-];
 
 export default function QuotePage() {
   const { navigateWithParams } = useNavigateWithParams();
-  const [selectedQuote, setSelectedQuote] = useState<string | null>(null);
+  // const { locationsData } = useWidgetState();
+  // const { data: quotes, isLoading, error } = useQuotes(locationsData);
+  // const selectQuote = useSelectQuote();
+  // const [selectedQuote, setSelectedQuote] = useState<string | null>(null);
 
   const handleContinue = () => {
-    if (selectedQuote) {
-      navigateWithParams("/customize");
-    }
+    // if (selectedQuote) {
+    //   navigateWithParams("/customize");
+    // }
+    navigateWithParams("/customize");
   };
+
+  // const handleQuoteSelect = async (quoteId: string) => {
+  //   setSelectedQuote(quoteId);
+  //   try {
+  //     await selectQuote.mutateAsync(quoteId);
+  //   } catch (err) {
+  //     console.error("Failed to select quote:", err);
+  //   }
+  // };
 
   return (
     <WidgetLayout>
@@ -47,24 +33,30 @@ export default function QuotePage() {
         title="Mover Quotes"
         description="Compare quotes from top-rated moving companies"
       >
-        <div className="space-y-3">
-          {mockQuotes.map((quote) => (
-            <Card
-              key={quote.id}
-              className={`
-                cursor-pointer transition-all hover:shadow-md
-                ${selectedQuote === quote.id ? "ring-2 ring-blue-600" : ""}
-              `}
-              onClick={() => setSelectedQuote(quote.id)}
-              role="radio"
-              aria-checked={selectedQuote === quote.id}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  setSelectedQuote(quote.id);
-                }
-              }}
-            >
+        <p>QUOTE PAGE</p>
+        {/* {isLoading ? (
+          <div className="text-center py-8">Loading quotes...</div>
+        ) : error ? (
+          <div className="text-center py-8 text-red-600">Failed to load quotes</div>
+        ) : quotes && quotes.length > 0 ? (
+          <div className="space-y-3">
+            {quotes.map((quote) => (
+              <Card
+                key={quote.id}
+                className={`
+                  cursor-pointer transition-all hover:shadow-md
+                  ${selectedQuote === quote.id ? "ring-2 ring-blue-600" : ""}
+                `}
+                onClick={() => handleQuoteSelect(quote.id)}
+                role="radio"
+                aria-checked={selectedQuote === quote.id}
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleQuoteSelect(quote.id);
+                  }
+                }}
+              >
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base">{quote.company}</CardTitle>
@@ -92,8 +84,11 @@ export default function QuotePage() {
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8">No quotes available</div>
+        )} */}
       </FormSection>
 
       <StickyFooter>
@@ -107,7 +102,7 @@ export default function QuotePage() {
           </Button>
           <Button
             onClick={handleContinue}
-            disabled={!selectedQuote}
+            disabled={false}
             className="flex-1"
             size="lg"
           >
