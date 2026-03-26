@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigateWithParams } from "@/hooks";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -23,7 +23,7 @@ const checkoutSchema = z.object({
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
 export default function CheckoutPage() {
-  const navigate = useNavigate();
+  const { navigateWithParams } = useNavigateWithParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -49,7 +49,7 @@ export default function CheckoutPage() {
       // Notify parent window of completion
       postComplete({ mode: "checkout" });
 
-      navigate("/");
+      navigateWithParams("/");
     } catch (error) {
       console.error("Checkout failed:", error);
     } finally {
@@ -114,7 +114,7 @@ export default function CheckoutPage() {
         <div className="flex gap-2">
           <Button
             variant="outline"
-            onClick={() => navigate("/customize")}
+            onClick={() => navigateWithParams("/customize")}
             className="flex-1"
           >
             Back
