@@ -4,6 +4,7 @@ export interface WidgetParams {
   widgetKey: string;
   theme: string;
   primaryColor: string;
+  secondaryColor: string;
   hostOrigin: string;
 }
 
@@ -15,6 +16,7 @@ export function useWidgetParams(): WidgetParams {
       widgetKey: params.get("widgetKey") ?? "",
       theme: params.get("theme") ?? "light",
       primaryColor: params.get("primaryColor") ?? "#2563eb",
+      secondaryColor: params.get("secondaryColor") ?? "#2563eb",
       hostOrigin: params.get("hostOrigin") ?? "",
     };
   }, []);

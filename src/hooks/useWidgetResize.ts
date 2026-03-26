@@ -1,21 +1,24 @@
 import { postResize } from "@/lib/utils/messaging";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 interface UseWidgetResizeOptions {
   hostOrigin: string;
   containerSelector?: string;
+  currentPath?: string;
 }
 
 export function useWidgetResize({
   hostOrigin,
   containerSelector = "#widget-content",
 }: UseWidgetResizeOptions) {
+  const containerRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     if (!hostOrigin || window.parent === window) {
       return;
     }
-
     const container = document.querySelector<HTMLElement>(containerSelector);
+    containerRef.current = container;
 
     if (!container) {
       return;
@@ -41,10 +44,10 @@ export function useWidgetResize({
       if (frameId !== null) {
         return;
       }
-
       frameId = window.requestAnimationFrame(notifyParent);
     };
 
+    // Initial resize
     scheduleResize();
 
     const observer = new ResizeObserver(() => {

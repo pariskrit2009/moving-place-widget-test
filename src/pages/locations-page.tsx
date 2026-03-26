@@ -32,7 +32,7 @@ export default function LocationsPage() {
   const onSubmit = async (data: LocationsFormData) => {
     // TODO: Call API to fetch quotes
     console.log("Form submitted:", data);
-    navigate("/quote");
+    navigate(`/quote${window.location.search}`);
   };
 
   return (

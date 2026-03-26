@@ -1,6 +1,11 @@
 import WidgetHeader from "./WidgetHeader";
 import StepProgress from "./StepProgress";
-import { useWidgetState, useWidgetParams, useWidgetResize } from "@/hooks";
+import {
+  useWidgetState,
+  useWidgetParams,
+  useWidgetResize,
+  useWidgetTheme,
+} from "@/hooks";
 
 interface WidgetLayoutProps {
   children: React.ReactNode;
@@ -13,14 +18,16 @@ export function WidgetLayout({ children, title }: WidgetLayoutProps) {
   const { currentStep, totalSteps } = useWidgetState();
   const { hostOrigin } = useWidgetParams();
   useWidgetResize({ hostOrigin });
-
+  useWidgetTheme();
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900" id="main-container">
       <div id="widget-content">
         <WidgetHeader />
         <main className="mx-auto max-w-3xl px-4 py-6">
           {title && (
-            <h2 className="mb-4 text-xl font-semibold text-gray-900">{title}</h2>
+            <h2 className="mb-4 text-xl font-semibold text-gray-900">
+              {title}
+            </h2>
           )}
           <StepProgress
             currentStep={currentStep}
