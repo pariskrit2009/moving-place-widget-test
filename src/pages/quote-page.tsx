@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
@@ -32,12 +32,12 @@ const mockQuotes: MoverQuote[] = [
 ];
 
 export default function QuotePage() {
-  const navigate = useNavigate();
+  const { navigateWithParams } = useNavigateWithParams();
   const [selectedQuote, setSelectedQuote] = useState<string | null>(null);
 
   const handleContinue = () => {
     if (selectedQuote) {
-      navigate("/customize");
+      navigateWithParams("/customize");
     }
   };
 
@@ -100,7 +100,7 @@ export default function QuotePage() {
         <div className="flex gap-2">
           <Button
             variant="outline"
-            onClick={() => navigate("/")}
+            onClick={() => navigateWithParams("/")}
             className="flex-1"
           >
             Back

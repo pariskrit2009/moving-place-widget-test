@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigateWithParams } from "@/hooks";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import WidgetLayout from "@/components/layout/WidgetLayout";
@@ -14,7 +14,7 @@ import {
 } from "@/features/locations/schema";
 
 export default function LocationsPage() {
-  const navigate = useNavigate();
+  const { navigateWithParams } = useNavigateWithParams();
 
   const {
     register,
@@ -32,7 +32,7 @@ export default function LocationsPage() {
   const onSubmit = async (data: LocationsFormData) => {
     // TODO: Call API to fetch quotes
     console.log("Form submitted:", data);
-    navigate(`/quote${window.location.search}`);
+    navigateWithParams("/quote");
   };
 
   return (
