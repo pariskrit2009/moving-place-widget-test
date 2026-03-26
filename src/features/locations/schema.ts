@@ -7,3 +7,11 @@ export const locationsSchema = z.object({
 });
 
 export type LocationsFormData = z.infer<typeof locationsSchema>;
+
+export interface MoverQuote {
+  id: string;
+  company: string;
+  price: number;
+  rating: number;
+  services: string[];
+}

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const customizeSchema = z.object({
   packagingType: z.enum(["standard", "premium", "eco-friendly"]),
-  insuranceLevel: z.enum("basic", "standard", "premium"),
+  insuranceLevel: z.enum(["basic", "standard", "premium"]),
   additionalServices: z.array(z.string()).default([]),
 });
 
