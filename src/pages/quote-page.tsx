@@ -95,7 +95,7 @@ export default function QuotePage() {
         <div className="flex gap-2">
           <Button
             variant="outline"
-            onClick={() => navigateWithParams("/")}
+            onClick={() => navigateWithParams("/location")}
             className="flex-1"
           >
             Back
