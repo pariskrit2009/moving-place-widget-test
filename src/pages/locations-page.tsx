@@ -1,8 +1,10 @@
+import { Controller } from "react-hook-form";
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import FieldError from "@/components/form/FieldError";
 import FormSection from "@/components/form/FormSection";
 import type { LocationsFormData } from "@/features/locations/schema";
@@ -16,13 +18,16 @@ export default function LocationsPage() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
+    control,
   } = useLocationsForm();
   const submitLocations = useSubmitLocations();
 
+  const hasDifferentDates = watch("hasDifferentDates");
   const onSubmit = async (data: LocationsFormData) => {
     try {
-      await submitLocations.mutateAsync(data);
+      // await submitLocations.mutateAsync(data);
       navigateWithParams("/quote");
     } catch (error) {
       console.error("Failed to submit locations:", error);
@@ -56,12 +61,60 @@ export default function LocationsPage() {
               />
               <FieldError message={errors.endLocation?.message} />
             </div>
+            {!hasDifferentDates && (
+              <div className="flex-1">
+                <Label htmlFor="movingDate">Moving Date</Label>
+                <Input
+                  id="movingDate"
+                  type="date"
+                  {...register("movingDate")}
+                />
+                <FieldError message={errors.movingDate?.message} />
+              </div>
+            )}
+          </div>
 
-            <div className="flex-1">
-              <Label htmlFor="movingDate">Moving Date</Label>
-              <Input id="movingDate" type="date" {...register("movingDate")} />
-              <FieldError message={errors.movingDate?.message} />
-            </div>
+          <div className="flex items-center space-x-2">
+            <Controller
+              name="hasDifferentDates"
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  id="hasDifferentDates"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              )}
+            />
+            <Label htmlFor="hasDifferentDates" className="cursor-pointer">
+              I have different dates for loading and unloading
+            </Label>
+          </div>
+
+          <div className="flex flex-col gap-4 min-[600px]:flex-row min-[600px]:items-end">
+            {hasDifferentDates && (
+              <>
+                <div className="flex-1">
+                  <Label htmlFor="loadingDate">Loading Date</Label>
+                  <Input
+                    id="loadingDate"
+                    type="date"
+                    {...register("loadingDate")}
+                  />
+                  <FieldError message={errors.loadingDate?.message} />
+                </div>
+
+                <div className="flex-1">
+                  <Label htmlFor="unloadingDate">Unloading Date</Label>
+                  <Input
+                    id="unloadingDate"
+                    type="date"
+                    {...register("unloadingDate")}
+                  />
+                  <FieldError message={errors.unloadingDate?.message} />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </FormSection>
