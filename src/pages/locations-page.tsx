@@ -2,13 +2,13 @@ import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import FieldError from "@/components/form/FieldError";
 import FormSection from "@/components/form/FormSection";
 import type { LocationsFormData } from "@/features/locations/schema";
 import { useLocationsForm } from "@/features/locations/hooks";
 import { useSubmitLocations } from "@/features/locations/hooks";
+import { Input } from "@/components/ui/input";
 
 export default function LocationsPage() {
   const { navigateWithParams } = useNavigateWithParams();

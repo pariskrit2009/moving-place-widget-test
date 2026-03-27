@@ -2,7 +2,6 @@ import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import FormSection from "@/components/form/FormSection";
@@ -10,6 +9,7 @@ import FieldError from "@/components/form/FieldError";
 import { postComplete } from "@/lib/utils/messaging";
 import { useSubmitBooking } from "@/features/checkout/hooks";
 import { useCheckoutForm } from "@/features/checkout/useCheckoutForm";
+import { Input } from "@/components/ui/input";
 
 export default function CheckoutPage() {
   const { navigateWithParams } = useNavigateWithParams();
