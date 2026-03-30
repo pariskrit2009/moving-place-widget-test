@@ -3,13 +3,13 @@ import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import FieldError from "@/components/form/FieldError";
 import FormSection from "@/components/form/FormSection";
-import { Input } from "@/components/ui/input";
-import { useSubmitLocations } from "@/features/search/mutations";
-import { useLocationsForm, type LocationsFormData } from "@/features/search";
+import FieldError from "@/components/form/FieldError";
+import { DatePickerInput } from "@/components/form/DatePickerInput";
+import { useLocationsForm } from "@/features/search";
 
 export default function SearchPage() {
   const { navigateWithParams } = useNavigateWithParams();
@@ -21,12 +21,10 @@ export default function SearchPage() {
     formState: { errors, isSubmitting },
     control,
   } = useLocationsForm();
-  const submitLocations = useSubmitLocations();
 
   const hasDifferentDates = watch("hasDifferentDates");
-  const onSubmit = async (data: LocationsFormData) => {
+  const onSubmit = async () => {
     try {
-      // await submitLocations.mutateAsync(data);
       navigateWithParams("/location");
     } catch (error) {
       console.error("Failed to submit locations:", error);
@@ -62,13 +60,13 @@ export default function SearchPage() {
             </div>
             {!hasDifferentDates && (
               <div className="flex-1">
-                <Label htmlFor="movingDate">Moving Date</Label>
-                <Input
+                <DatePickerInput
                   id="movingDate"
-                  type="date"
-                  {...register("movingDate")}
+                  name="movingDate"
+                  label="Moving Date"
+                  control={control}
+                  error={errors.movingDate?.message}
                 />
-                <FieldError message={errors.movingDate?.message} />
               </div>
             )}
           </div>
@@ -94,23 +92,24 @@ export default function SearchPage() {
             {hasDifferentDates && (
               <>
                 <div className="flex-1">
-                  <Label htmlFor="loadingDate">Loading Date</Label>
-                  <Input
+                  <DatePickerInput
                     id="loadingDate"
-                    type="date"
-                    {...register("loadingDate")}
+                    name="loadingDate"
+                    label="Loading Date"
+                    control={control}
+                    error={errors.loadingDate?.message}
                   />
-                  <FieldError message={errors.loadingDate?.message} />
                 </div>
 
                 <div className="flex-1">
-                  <Label htmlFor="unloadingDate">Unloading Date</Label>
-                  <Input
+                  <DatePickerInput
                     id="unloadingDate"
-                    type="date"
-                    {...register("unloadingDate")}
+                    name="unloadingDate"
+                    label="Unloading Date"
+                    control={control}
+                    error={errors.unloadingDate?.message}
+                    minDate={watch("loadingDate") ? new Date(watch("loadingDate")) : undefined}
                   />
-                  <FieldError message={errors.unloadingDate?.message} />
                 </div>
               </>
             )}

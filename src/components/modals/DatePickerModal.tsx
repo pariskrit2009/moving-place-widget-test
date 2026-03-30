@@ -1,13 +1,48 @@
-// interface DatePickerModalProps {
-//   open: boolean;
-//   onOpenChange: (open: boolean) => void;
-// }
+import { DayPicker } from "react-day-picker";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import "react-day-picker/style.css";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function DatePickerModal() {
+interface DatePickerModalProps {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  selectedDate: Date | undefined;
+  onSelect: (date: Date | undefined) => void;
+  minDate?: Date;
+  trigger?: React.ReactNode;
+}
+
+export function DatePickerModal({
+  open,
+  onOpenChange,
+  selectedDate,
+  onSelect,
+  minDate,
+  trigger,
+}: DatePickerModalProps) {
+  const handleDateSelect = (date: Date | undefined) => {
+    onSelect(date);
+
+    if (onOpenChange) onOpenChange(false);
+  };
+
   return (
-    <div role="dialog" aria-modal="true">
-      {/* Date picker modal content - TODO: implement */}
-    </div>
+    <Popover open={open} onOpenChange={onOpenChange}>
+      {trigger && <PopoverTrigger asChild>{trigger}</PopoverTrigger>}
+      <PopoverContent align="start">
+        <DayPicker
+          mode="single"
+          selected={selectedDate}
+          onSelect={handleDateSelect}
+          disabled={{ before: minDate || new Date() }}
+          autoFocus
+          role="application"
+          aria-label="Date picker"
+        />
+      </PopoverContent>
+    </Popover>
   );
 }

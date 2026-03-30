@@ -20,7 +20,6 @@ export default function LocationsPage() {
   const { navigateWithParams } = useNavigateWithParams();
 
   const {
-    register,
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
