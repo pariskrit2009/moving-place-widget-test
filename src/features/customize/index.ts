@@ -1,2 +1,2 @@
-// Customize feature module
-// Placeholder for customization-related components, hooks, and utilities
+export { customizeSchema, type CustomizeFormData } from "./schema";
+export { createCustomizeSlice, type CustomizeSlice } from "./slice";
