@@ -3,19 +3,17 @@ import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import FormSection from "@/components/form/FormSection";
-import FieldError from "@/components/form/FieldError";
 import { DatePickerInput } from "@/components/form/DatePickerInput";
+import { LocationSearchInput } from "@/components/form/LocationSearchInput";
 import { useLocationsForm } from "@/features/search";
 
 export default function SearchPage() {
   const { navigateWithParams } = useNavigateWithParams();
 
   const {
-    register,
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
@@ -40,23 +38,25 @@ export default function SearchPage() {
         <div className="space-y-4">
           <div className="flex flex-col gap-4 min-[600px]:flex-row min-[600px]:items-end">
             <div className="flex-1">
-              <Label htmlFor="startLocation">Start Location</Label>
-              <Input
+              <LocationSearchInput
+                control={control}
+                name="startLocation"
+                label="Start Location"
                 id="startLocation"
                 placeholder="Enter starting address"
-                {...register("startLocation")}
+                error={errors.startLocation?.message}
               />
-              <FieldError message={errors.startLocation?.message} />
             </div>
 
             <div className="flex-1">
-              <Label htmlFor="endLocation">End Location</Label>
-              <Input
+              <LocationSearchInput
+                control={control}
+                name="endLocation"
+                label="End Location"
                 id="endLocation"
                 placeholder="Enter destination address"
-                {...register("endLocation")}
+                error={errors.endLocation?.message}
               />
-              <FieldError message={errors.endLocation?.message} />
             </div>
             {!hasDifferentDates && (
               <div className="flex-1">
@@ -108,7 +108,11 @@ export default function SearchPage() {
                     label="Unloading Date"
                     control={control}
                     error={errors.unloadingDate?.message}
-                    minDate={watch("loadingDate") ? new Date(watch("loadingDate")) : undefined}
+                    minDate={
+                      watch("loadingDate")
+                        ? new Date(watch("loadingDate"))
+                        : undefined
+                    }
                   />
                 </div>
               </>

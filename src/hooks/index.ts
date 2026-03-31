@@ -3,3 +3,4 @@ export { useWidgetState } from "./useWidgetState";
 export { useWidgetTheme } from "./useWidgetTheme";
 export { useWidgetResize } from "./useWidgetResize";
 export { useNavigateWithParams } from "./useNavigateWithParams";
+export { useDebounce } from "./useDebounce";

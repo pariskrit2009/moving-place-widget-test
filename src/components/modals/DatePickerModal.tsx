@@ -32,15 +32,12 @@ export function DatePickerModal({
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
       {trigger && <PopoverTrigger asChild>{trigger}</PopoverTrigger>}
-      <PopoverContent align="start">
+      <PopoverContent>
         <DayPicker
           mode="single"
           selected={selectedDate}
           onSelect={handleDateSelect}
           disabled={{ before: minDate || new Date() }}
-          autoFocus
-          role="application"
-          aria-label="Date picker"
         />
       </PopoverContent>
     </Popover>
