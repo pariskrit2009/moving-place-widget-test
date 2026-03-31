@@ -1,2 +1,2 @@
-// Checkout feature module
-// Placeholder for checkout-related components, hooks, and utilities
+export { checkoutSchema, type CheckoutFormData, type BookingData } from "./schema";
+export { createCheckoutSlice, type CheckoutSlice } from "./slice";
