@@ -3,6 +3,7 @@ import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
 import FormSection from "@/components/form/FormSection";
+import { StarRating } from "@/components/ui/star-rating";
 
 export default function QuotePage() {
   const { navigateWithParams } = useNavigateWithParams();
@@ -34,6 +35,8 @@ export default function QuotePage() {
         description="Compare quotes from top-rated moving companies"
       >
         <p>QUOTE PAGE</p>
+        <StarRating rating={5} />
+
         {/* {isLoading ? (
           <div className="text-center py-8">Loading quotes...</div>
         ) : error ? (
@@ -67,7 +70,7 @@ export default function QuotePage() {
               </CardHeader>
               <CardContent>
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <span>★ {quote.rating}</span>
+                  <StarRating rating={quote.rating} />
                   <span className="text-gray-300">|</span>
                   <span className="flex flex-wrap gap-1">
                     {quote.services.slice(0, 2).map((service) => (

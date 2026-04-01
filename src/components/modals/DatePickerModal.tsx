@@ -38,6 +38,9 @@ export function DatePickerModal({
           selected={selectedDate}
           onSelect={handleDateSelect}
           disabled={{ before: minDate || new Date() }}
+          navLayout="around"
+          showOutsideDays
+          captionLayout="dropdown"
         />
       </PopoverContent>
     </Popover>
