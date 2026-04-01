@@ -35,7 +35,6 @@ export function useWidgetResize({
       if (nextHeight === lastHeight) {
         return;
       }
-
       lastHeight = nextHeight;
       postResize(hostOrigin, nextHeight);
     };

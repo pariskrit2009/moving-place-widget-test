@@ -41,4 +41,10 @@ export interface CheckoutData {
   name?: string;
 }
 
-export type PageRoute = "/" | "/quote" | "/customize" | "/checkout";
+export type PageRoute =
+  | "/"
+  | "/quote"
+  | "/customize"
+  | "/checkout"
+  | "/movers"
+  | "/location";

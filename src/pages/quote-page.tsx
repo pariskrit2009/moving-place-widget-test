@@ -35,6 +35,9 @@ export default function QuotePage() {
         description="Compare quotes from top-rated moving companies"
       >
         <p>QUOTE PAGE</p>
+        <Button onClick={() => navigateWithParams("/movers")}>
+          See more movers
+        </Button>
         <StarRating rating={5} />
 
         {/* {isLoading ? (

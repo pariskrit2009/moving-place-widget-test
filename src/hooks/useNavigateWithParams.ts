@@ -1,3 +1,4 @@
+import type { PageRoute } from "@/types";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -46,7 +47,10 @@ interface NavigateWithParamsReturn {
    * // Navigate and replace existing param
    * navigateWithParams("/checkout", { searchParams: { theme: "dark" } });
    */
-  navigateWithParams: (to: string, options?: NavigateWithParamsOptions) => void;
+  navigateWithParams: (
+    to: PageRoute,
+    options?: NavigateWithParamsOptions,
+  ) => void;
 }
 
 /**
@@ -76,7 +80,7 @@ export function useNavigateWithParams(): NavigateWithParamsReturn {
 
   const navigateWithParams: NavigateWithParamsReturn["navigateWithParams"] = (
     to,
-    options = {}
+    options = {},
   ) => {
     // Extract current search params from URL
     const currentParams = new URLSearchParams(window.location.search);

@@ -5,6 +5,7 @@ import QuotePage from "../pages/quote-page";
 import CustomizePage from "../pages/customize-page";
 import CheckoutPage from "../pages/checkout-page";
 import SearchPage from "@/pages/search-page";
+import MoversPage from "@/pages/movers-page";
 
 export const router = createBrowserRouter([
   { path: "/", element: <SearchPage /> },
@@ -12,4 +13,5 @@ export const router = createBrowserRouter([
   { path: "/quote", element: <QuotePage /> },
   { path: "/customize", element: <CustomizePage /> },
   { path: "/checkout", element: <CheckoutPage /> },
+  { path: "/movers", element: <MoversPage /> },
 ]);
