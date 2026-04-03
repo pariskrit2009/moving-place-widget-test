@@ -1,10 +1,11 @@
 import axios, { AxiosError } from 'axios';
 import axiosRetry from 'axios-retry';
+import { config } from '@/lib/config';
 
 // Create centralized axios instance
 const axiosInstance = axios.create({
-  baseURL: '/api',
-  timeout: 10000,
+  baseURL: config.apiBaseUrl,
+  timeout: config.apiTimeout,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -31,7 +32,7 @@ axiosInstance.interceptors.request.use(
     // Add widgetKey to headers if present
     if (widgetKey) {
       config.headers = config.headers || {};
-      config.headers['X-Widget-Key'] = widgetKey;
+      config.headers['Authorization-Token'] = widgetKey;
     }
 
     // Log request details for debugging
