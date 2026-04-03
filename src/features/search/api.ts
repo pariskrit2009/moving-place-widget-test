@@ -7,7 +7,7 @@ export async function submitLocations(data: LocationsFormData) {
   return post("/quotes", data);
 }
 
-export async function getLocationsHistory() {
+export async function getProvidersList() {
   return get("/service-providers/helper-list");
 }
 

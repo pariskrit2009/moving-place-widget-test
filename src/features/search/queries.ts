@@ -7,12 +7,12 @@
 // }
 
 import { useQuery } from "@tanstack/react-query";
-import { getLocationsHistory } from "./api";
+import { getProvidersList } from "./api";
 
-export function useLocationsHistory() {
+export function useProvidersList() {
   return useQuery({
-    queryKey: ["locations", "history"],
-    queryFn: getLocationsHistory,
+    queryKey: ["providers", "list"],
+    queryFn: getProvidersList,
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 }
