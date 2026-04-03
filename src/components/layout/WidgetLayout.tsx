@@ -23,7 +23,7 @@ export function WidgetLayout({ children, title }: WidgetLayoutProps) {
     <div className="min-h-screen bg-gray-50 text-gray-900" id="main-container">
       <div id="widget-content">
         <WidgetHeader />
-        <main className="mx-auto max-w-3xl px-4 py-6 h-[500px] overflow-y-auto">
+        <main className="mx-auto max-w-3xl px-4 py-6 max-h-125 overflow-y-auto">
           {title && (
             <h2 className="mb-4 text-xl font-semibold text-gray-900">
               {title}

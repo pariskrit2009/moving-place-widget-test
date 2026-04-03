@@ -11,7 +11,7 @@ export function postResize(hostOrigin: string, height?: number) {
   window.parent.postMessage(
     {
       type: "WIDGET_RESIZE",
-      payload: { height: Math.ceil(nextHeight) + 20 },
+      payload: { height: Math.ceil(nextHeight) },
     },
     hostOrigin,
   );
