@@ -6,10 +6,13 @@
 //   });
 // }
 
-// export function useLocationsHistory() {
-//   return useQuery({
-//     queryKey: ["locations", "history"],
-//     queryFn: getLocationsHistory,
-//     staleTime: 1000 * 60 * 5, // 5 minutes
-//   });
-// }
+import { useQuery } from "@tanstack/react-query";
+import { getLocationsHistory } from "./api";
+
+export function useLocationsHistory() {
+  return useQuery({
+    queryKey: ["locations", "history"],
+    queryFn: getLocationsHistory,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+}

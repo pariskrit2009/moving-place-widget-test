@@ -9,9 +9,11 @@ import FormSection from "@/components/form/FormSection";
 import { DatePickerInput } from "@/components/form/DatePickerInput";
 import { LocationSearchInput } from "@/components/form/LocationSearchInput";
 import { useLocationsForm } from "@/features/search";
+import { useLocationsHistory } from "@/features/search/queries";
 
 export default function SearchPage() {
   const { navigateWithParams } = useNavigateWithParams();
+  useLocationsHistory();
 
   const {
     handleSubmit,
