@@ -10,9 +10,9 @@ export function useLocationsForm() {
       startLocation: "",
       endLocation: "",
       hasDifferentDates: false,
-      movingDate: "",
-      loadingDate: "",
-      unloadingDate: "",
+      // movingDate: "",
+      // loadingDate: "",
+      // unloadingDate: "",
     },
   });
 
@@ -23,17 +23,17 @@ export function useLocationsForm() {
   useEffect(() => {
     if (hasDifferentDates) {
       // Transition to separate dates mode
-      const currentMovingDate = getValues("movingDate");
-      if (currentMovingDate && !getValues("loadingDate")) {
-        setValue("loadingDate", currentMovingDate);
-      }
+      // const currentMovingDate = getValues("movingDate");
+      // if (currentMovingDate && !getValues("loadingDate") &&  currentMovingDate) {
+      //   setValue("loadingDate", currentMovingDate);
+      // }
       setValue("movingDate", "");
     } else {
       // Transition to single date mode
-      const currentLoadingDate = getValues("loadingDate");
-      if (currentLoadingDate && !getValues("movingDate")) {
-        setValue("movingDate", currentLoadingDate);
-      }
+      // const currentLoadingDate = getValues("loadingDate");
+      // if (currentLoadingDate && !getValues("movingDate")) {
+      //   setValue("movingDate", currentLoadingDate);
+      // }
       setValue("loadingDate", "");
       setValue("unloadingDate", "");
     }

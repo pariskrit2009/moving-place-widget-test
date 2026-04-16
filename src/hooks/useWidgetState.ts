@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
-export interface WidgetState {
-  currentStep: number;
-  totalSteps: number;
-  isComplete: boolean;
-}
+const routeStepMap: Record<string, number> = {
+  "/": 1,
+  "/location": 2,
+  "/quote": 3,
+  "/customize": 4,
+  "/checkout": 5,
+  "/movers": 3,
+};
 
-export function useWidgetState(): WidgetState {
-  const [currentStep] = useState(1);
+export function useWidgetState() {
+  const { pathname } = useLocation();
   const totalSteps = 6;
+  const currentStep = routeStepMap[pathname] ?? 1;
 
   return {
     currentStep,

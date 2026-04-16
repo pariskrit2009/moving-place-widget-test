@@ -1,11 +1,9 @@
+import { useWidgetState } from "@/hooks/useWidgetState";
 import { cn } from "@/lib/utils";
 
-interface StepProgressProps {
-  currentStep: number;
-  totalSteps: number;
-}
+export function StepProgress() {
+  const { currentStep, totalSteps } = useWidgetState();
 
-export function StepProgress({ currentStep, totalSteps }: StepProgressProps) {
   return (
     <div className="flex items-center gap-3">
       <div className="flex flex-1 gap-1.5">

@@ -1,22 +1,21 @@
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
-import StepProgress from "@/components/layout/StepProgress";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { LocationSearchInput } from "@/components/form/LocationSearchInput";
 import { useLocationsForm } from "@/features/search";
-import { useProvidersList } from "@/features/search/queries";
 
 export default function SearchPage() {
   const { navigateWithParams } = useNavigateWithParams();
-  useProvidersList();
+  // useProvidersList();
 
   const {
     handleSubmit,
     formState: { errors, isSubmitting },
     control,
   } = useLocationsForm();
+  console.log(errors, "form errorrrsss");
 
   const onSubmit = async () => {
     try {
@@ -30,18 +29,6 @@ export default function SearchPage() {
     <WidgetLayout>
       <div className="flex-1 flex flex-col">
         <div className="flex-1 space-y-6">
-          <div className="space-y-1">
-            <h1 className="text-[28px] font-bold leading-tight text-[#2e343e]">
-              Book Your Move in Minutes
-            </h1>
-            <p className="text-sm font-normal text-[#2e343e]">
-              Tell us about your move and we&apos;ll match you with the best
-              options—fast and hassle-free
-            </p>
-          </div>
-
-          <StepProgress currentStep={1} totalSteps={6} />
-
           <div className="space-y-4">
             <h2 className="text-xl font-bold text-[#2e343e]">
               Location Details
@@ -69,7 +56,11 @@ export default function SearchPage() {
 
             <div className="rounded-2xl border border-[#2d6671] bg-[#f1faf9] px-3 py-4">
               <div className="flex items-center gap-3">
-                <Icon name="info" size={20} className="shrink-0 text-[#2d6671] mt-0.5" />
+                <Icon
+                  name="info"
+                  size={20}
+                  className="shrink-0 text-[#2d6671] mt-0.5"
+                />
                 <p className="text-sm font-normal leading-relaxed text-[#677890]">
                   For a full move, please provide both locations. If you only
                   need help with loading or unloading, just enter the relevant
