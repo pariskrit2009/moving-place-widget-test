@@ -8,7 +8,7 @@ export interface WidgetState {
 
 export function useWidgetState(): WidgetState {
   const [currentStep] = useState(1);
-  const totalSteps = 4;
+  const totalSteps = 6;
 
   return {
     currentStep,

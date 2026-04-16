@@ -25,16 +25,16 @@
   --radius: 0.5rem;
 
   /* Font families */
-  --font-base: system-ui, -apple-system, sans-serif;
-  --font-heading: system-ui, -apple-system, sans-serif;
+  --font-base: "Mulish", system-ui, -apple-system, sans-serif;
+  --font-heading: "Mulish", system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, monospace;
 }
 
 /* Dark mode overrides */
 [data-theme="dark"] {
   /* Font families - same as light mode */
-  --font-base: system-ui, -apple-system, sans-serif;
-  --font-heading: system-ui, -apple-system, sans-serif;
+  --font-base: "Mulish", system-ui, -apple-system, sans-serif;
+  --font-heading: "Mulish", system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, monospace;
 
   --background: 222.2 84% 4.9%;

@@ -3,7 +3,6 @@ import type { Control, FieldValues, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import { X, Loader2, MapPin } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
@@ -34,7 +33,7 @@ export function LocationSearchInput<T extends FieldValues>({
   name,
   label,
   id,
-  placeholder = "Search for a location",
+  placeholder = "Zip code or street address",
   error,
 }: LocationSearchInputProps<T>) {
   return (
@@ -108,11 +107,16 @@ function LocationSearchInner({
 
   return (
     <div>
-      <Label htmlFor={id}>{label}</Label>
+      <label
+        htmlFor={id}
+        className="mb-1.5 block text-xs font-semibold text-[#677890]"
+      >
+        {label}
+      </label>
       <Popover open={isOpen} onOpenChange={setIsOpen}>
-        <PopoverTrigger>
+        <PopoverTrigger className="w-full">
           <div className="relative">
-            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+            {/* <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#b1bbc8] pointer-events-none" /> */}
             <Input
               id={id}
               value={inputValue}
@@ -121,13 +125,13 @@ function LocationSearchInner({
               onBlur={() => {
                 field.onBlur();
               }}
-              className="pr-8 pl-9"
+              className="min-h-14 rounded-lg border-[#b1bbc8] pl-4 pr-8 py-4 text-base font-normal text-[#2e343e] placeholder:text-[#b1bbc8] focus-visible:ring-[#3799a3]"
             />
             {inputValue && (
               <button
                 type="button"
                 onClick={handleClear}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 rounded-sm text-muted-foreground hover:text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 rounded-sm text-[#b1bbc8] hover:text-[#2e343e] focus:outline-none focus:ring-1 focus:ring-[#3799a3]"
                 aria-label="Clear location"
               >
                 <X className="h-4 w-4" />
@@ -145,7 +149,7 @@ function LocationSearchInner({
           <Command shouldFilter={false}>
             <CommandList>
               {isLoading ? (
-                <div className="flex items-center justify-center py-6 text-sm text-muted-foreground">
+                <div className="flex items-center justify-center py-6 text-sm text-[#677890]">
                   <Loader2 className="h-4 w-4 animate-spin mr-2" />
                   Searching...
                 </div>
@@ -160,7 +164,7 @@ function LocationSearchInner({
                       value={suggestion.placeId}
                       onSelect={() => handleSelect(suggestion.description)}
                     >
-                      <MapPin className="h-4 w-4 shrink-0 text-muted-foreground" />
+                      <MapPin className="h-4 w-4 shrink-0 text-[#677890]" />
                       <span className="truncate">{suggestion.description}</span>
                     </CommandItem>
                   ))}

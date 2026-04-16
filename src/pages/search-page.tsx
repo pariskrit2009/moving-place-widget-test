@@ -1,12 +1,9 @@
-import { Controller } from "react-hook-form";
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
+import StepProgress from "@/components/layout/StepProgress";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import FormSection from "@/components/form/FormSection";
-import { DatePickerInput } from "@/components/form/DatePickerInput";
+import { Icon } from "@/components/ui/icon";
 import { LocationSearchInput } from "@/components/form/LocationSearchInput";
 import { useLocationsForm } from "@/features/search";
 import { useProvidersList } from "@/features/search/queries";
@@ -17,12 +14,10 @@ export default function SearchPage() {
 
   const {
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
     control,
   } = useLocationsForm();
 
-  const hasDifferentDates = watch("hasDifferentDates");
   const onSubmit = async () => {
     try {
       navigateWithParams("/location");
@@ -33,107 +28,70 @@ export default function SearchPage() {
 
   return (
     <WidgetLayout>
-      <FormSection
-        title="Enter Move Details"
-        description="Provide the locations and date for your move to get started"
-      >
-        <div className="space-y-4">
-          <div className="flex flex-col gap-4 min-[600px]:flex-row min-[600px]:items-end">
-            <div className="flex-1">
+      <div className="flex-1 flex flex-col">
+        <div className="flex-1 space-y-6">
+          <div className="space-y-1">
+            <h1 className="text-[28px] font-bold leading-tight text-[#2e343e]">
+              Book Your Move in Minutes
+            </h1>
+            <p className="text-sm font-normal text-[#2e343e]">
+              Tell us about your move and we&apos;ll match you with the best
+              options—fast and hassle-free
+            </p>
+          </div>
+
+          <StepProgress currentStep={1} totalSteps={6} />
+
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold text-[#2e343e]">
+              Location Details
+            </h2>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <LocationSearchInput
                 control={control}
                 name="startLocation"
-                label="Start Location"
+                label="Loading address"
                 id="startLocation"
-                placeholder="Enter starting address"
+                placeholder="Zip code or street address"
                 error={errors.startLocation?.message}
               />
-            </div>
 
-            <div className="flex-1">
               <LocationSearchInput
                 control={control}
                 name="endLocation"
-                label="End Location"
+                label="Unloading address"
                 id="endLocation"
-                placeholder="Enter destination address"
+                placeholder="Zip code or street address"
                 error={errors.endLocation?.message}
               />
             </div>
-            {!hasDifferentDates && (
-              <div className="flex-1">
-                <DatePickerInput
-                  id="movingDate"
-                  name="movingDate"
-                  label="Moving Date"
-                  control={control}
-                  error={errors.movingDate?.message}
-                />
+
+            <div className="rounded-2xl border border-[#2d6671] bg-[#f1faf9] px-3 py-4">
+              <div className="flex items-center gap-3">
+                <Icon name="info" size={20} className="shrink-0 text-[#2d6671] mt-0.5" />
+                <p className="text-sm font-normal leading-relaxed text-[#677890]">
+                  For a full move, please provide both locations. If you only
+                  need help with loading or unloading, just enter the relevant
+                  address. We&apos;ll match you with the right type of movers.
+                </p>
               </div>
-            )}
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Controller
-              name="hasDifferentDates"
-              control={control}
-              render={({ field }) => (
-                <Checkbox
-                  id="hasDifferentDates"
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              )}
-            />
-            <Label htmlFor="hasDifferentDates" className="cursor-pointer">
-              I have different dates for loading and unloading
-            </Label>
-          </div>
-
-          <div className="flex flex-col gap-4 min-[600px]:flex-row min-[600px]:items-end">
-            {hasDifferentDates && (
-              <>
-                <div className="flex-1">
-                  <DatePickerInput
-                    id="loadingDate"
-                    name="loadingDate"
-                    label="Loading Date"
-                    control={control}
-                    error={errors.loadingDate?.message}
-                  />
-                </div>
-
-                <div className="flex-1">
-                  <DatePickerInput
-                    id="unloadingDate"
-                    name="unloadingDate"
-                    label="Unloading Date"
-                    control={control}
-                    error={errors.unloadingDate?.message}
-                    minDate={
-                      watch("loadingDate")
-                        ? new Date(watch("loadingDate"))
-                        : undefined
-                    }
-                  />
-                </div>
-              </>
-            )}
+            </div>
           </div>
         </div>
-      </FormSection>
 
-      <StickyFooter>
-        <Button
-          type="submit"
-          onClick={handleSubmit(onSubmit)}
-          disabled={isSubmitting}
-          className="w-full"
-          size="lg"
-        >
-          {isSubmitting ? "Loading..." : "Find Movers"}
-        </Button>
-      </StickyFooter>
+        <StickyFooter className="px-0 self-end">
+          <Button
+            type="submit"
+            variant="cta"
+            onClick={handleSubmit(onSubmit)}
+            disabled={isSubmitting}
+            className="h-12 self-end"
+          >
+            {isSubmitting ? "Loading..." : "Continue"}
+          </Button>
+        </StickyFooter>
+      </div>
     </WidgetLayout>
   );
 }

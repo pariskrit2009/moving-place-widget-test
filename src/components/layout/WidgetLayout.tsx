@@ -1,7 +1,4 @@
-import WidgetHeader from "./WidgetHeader";
-import StepProgress from "./StepProgress";
 import {
-  useWidgetState,
   useWidgetParams,
   useWidgetResize,
   useWidgetTheme,
@@ -9,33 +6,20 @@ import {
 
 interface WidgetLayoutProps {
   children: React.ReactNode;
-  title?: string;
 }
 
-const stepLabels = ["Locations", "Quotes", "Customize", "Checkout"];
-
-export function WidgetLayout({ children, title }: WidgetLayoutProps) {
-  const { currentStep, totalSteps } = useWidgetState();
+export function WidgetLayout({ children }: WidgetLayoutProps) {
   const { hostOrigin } = useWidgetParams();
   useWidgetResize({ hostOrigin });
   useWidgetTheme();
+
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900" id="main-container">
-      <div id="widget-content">
-        <WidgetHeader />
-        <main className="mx-auto max-w-3xl px-4 py-6 max-h-125 overflow-y-auto">
-          {title && (
-            <h2 className="mb-4 text-xl font-semibold text-gray-900">
-              {title}
-            </h2>
-          )}
-          <StepProgress
-            currentStep={currentStep}
-            totalSteps={totalSteps}
-            stepLabels={stepLabels}
-          />
-          <div className="mt-6">{children}</div>
-        </main>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      <div
+        id="widget-content"
+        className="relative w-full max-w-[1024px] min-h-[711px] rounded-2xl border border-[#b1bbc8] bg-white p-6 flex flex-col"
+      >
+        {children}
       </div>
     </div>
   );

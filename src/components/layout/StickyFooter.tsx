@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 interface StickyFooterProps {
   children: React.ReactNode;
   className?: string;
@@ -5,7 +7,12 @@ interface StickyFooterProps {
 
 export function StickyFooter({ children, className }: StickyFooterProps) {
   return (
-    <footer className={`sticky bottom-0 border-t border-gray-200 bg-white px-4 py-3 ${className ?? ""}`}>
+    <footer
+      className={cn(
+        "sticky bottom-0 bg-white/80 backdrop-blur-sm px-6 py-4 border-[#b1bbc8]/30",
+        className,
+      )}
+    >
       {children}
     </footer>
   );
