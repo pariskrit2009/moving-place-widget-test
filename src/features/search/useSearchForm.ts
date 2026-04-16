@@ -18,6 +18,7 @@ export function useLocationsForm() {
 
   const { watch, getValues, setValue } = form;
   const hasDifferentDates = watch("hasDifferentDates");
+  console.log("Random Console Has No Meaning");
 
   // Handle field synchronization when toggling modes
   useEffect(() => {
