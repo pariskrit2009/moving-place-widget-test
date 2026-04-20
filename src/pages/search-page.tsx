@@ -1,21 +1,31 @@
+import { useEffect } from "react";
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { LocationSearchInput } from "@/components/form/LocationSearchInput";
-import { useLocationsForm } from "@/features/search";
-
+import { useLocationsForm, type LocationsFormData } from "@/features/search";
+import { useWidgetStore } from "@/store";
 export default function SearchPage() {
   const { navigateWithParams } = useNavigateWithParams();
-  // useProvidersList();
+  const search = useWidgetStore((s) => s.search);
+  const setSearch = useWidgetStore((s) => s.setSearch);
 
   const {
     handleSubmit,
     formState: { errors, isSubmitting },
     control,
-  } = useLocationsForm();
-  console.log(errors, "form errorrrsss");
+    watch,
+  } = useLocationsForm(search ?? undefined);
+
+  // Persist form values to store on every change
+  useEffect(() => {
+    const subscription = watch((values) => {
+      setSearch(values as LocationsFormData);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, setSearch]);
 
   const onSubmit = async () => {
     try {
@@ -31,7 +41,7 @@ export default function SearchPage() {
         <div className="flex-1 space-y-6">
           <div className="space-y-4">
             <h2 className="text-xl font-bold text-[#2e343e]">
-              Location Details
+              Where do you need help?
             </h2>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -71,7 +81,7 @@ export default function SearchPage() {
           </div>
         </div>
 
-        <StickyFooter className="px-0 self-end">
+        <StickyFooter className=" self-end">
           <Button
             type="submit"
             variant="cta"

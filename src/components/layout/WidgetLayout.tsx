@@ -1,8 +1,4 @@
-import {
-  useWidgetParams,
-  useWidgetResize,
-  useWidgetTheme,
-} from "@/hooks";
+import { useWidgetParams, useWidgetResize, useWidgetTheme } from "@/hooks";
 import StepProgress from "@/components/layout/StepProgress";
 
 interface WidgetLayoutProps {
@@ -20,18 +16,12 @@ export function WidgetLayout({ children }: WidgetLayoutProps) {
         id="widget-content"
         className="relative w-full max-w-[1024px] min-h-[711px] rounded-2xl border border-[#b1bbc8] bg-white p-6 flex flex-col"
       >
-        <div className="space-y-1">
-          <h1 className="text-[28px] font-bold leading-tight text-[#2e343e]">
-            Book Your Move in Minutes
-          </h1>
-          <p className="text-sm font-normal text-[#2e343e]">
-            Tell us about your move and we&apos;ll match you with the best
-            options—fast and hassle-free
-          </p>
-        </div>
+        <div className="space-y-1"></div>
 
         <StepProgress />
-
+        <p className="text-sm font-normal text-[#677890] my-2">
+          Book your move in minutes
+        </p>
         {children}
       </div>
     </div>
