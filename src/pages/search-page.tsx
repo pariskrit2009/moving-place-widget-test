@@ -41,7 +41,7 @@ export default function SearchPage() {
         <div className="flex-1 space-y-6">
           <div className="space-y-4">
             <h2 className="text-xl font-bold text-[#2e343e]">
-              Location Details
+              Where do you need help?
             </h2>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -81,7 +81,7 @@ export default function SearchPage() {
           </div>
         </div>
 
-        <StickyFooter className="px-0 self-end">
+        <StickyFooter className=" self-end">
           <Button
             type="submit"
             variant="cta"
