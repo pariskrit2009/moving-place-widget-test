@@ -116,7 +116,7 @@ function LocationSearchInner({
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger className="w-full">
           <div className="relative">
-            {/* <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#b1bbc8] pointer-events-none" /> */}
+            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#b1bbc8] pointer-events-none" />
             <Input
               id={id}
               value={inputValue}
@@ -125,7 +125,7 @@ function LocationSearchInner({
               onBlur={() => {
                 field.onBlur();
               }}
-              className="min-h-14 rounded-lg border-[#b1bbc8] pl-4 pr-8 py-4 text-base font-normal text-[#2e343e] placeholder:text-[#b1bbc8] focus-visible:ring-[#3799a3]"
+              className="pl-9 pr-8"
             />
             {inputValue && (
               <button

@@ -81,7 +81,7 @@ export default function LocationsPage() {
                 name="loadingPropertyType"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="min-h-12 rounded-lg border-[#b1bbc8] text-base text-[#2e343e]">
+                    <SelectTrigger>
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
@@ -115,7 +115,7 @@ export default function LocationsPage() {
                 name="unloadingPropertyType"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="min-h-12 rounded-lg border-[#b1bbc8] text-base text-[#2e343e]">
+                    <SelectTrigger>
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
