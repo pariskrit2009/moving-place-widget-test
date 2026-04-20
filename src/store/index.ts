@@ -2,9 +2,15 @@ import { create } from "zustand";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
 
 import { createSearchSlice, type SearchSlice } from "@/features/search";
-import { createLocationsSlice, type LocationsSlice } from "@/features/locations";
+import {
+  createLocationsSlice,
+  type LocationsSlice,
+} from "@/features/locations";
 import { createQuoteSlice, type QuoteSlice } from "@/features/quote";
-import { createCustomizeSlice, type CustomizeSlice } from "@/features/customize";
+import {
+  createCustomizeSlice,
+  type CustomizeSlice,
+} from "@/features/customize";
 import { createCheckoutSlice, type CheckoutSlice } from "@/features/checkout";
 
 export type WidgetStore = SearchSlice &

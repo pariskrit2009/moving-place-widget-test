@@ -1,21 +1,31 @@
+import { useEffect } from "react";
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { LocationSearchInput } from "@/components/form/LocationSearchInput";
-import { useLocationsForm } from "@/features/search";
-
+import { useLocationsForm, type LocationsFormData } from "@/features/search";
+import { useWidgetStore } from "@/store";
 export default function SearchPage() {
   const { navigateWithParams } = useNavigateWithParams();
-  // useProvidersList();
+  const search = useWidgetStore((s) => s.search);
+  const setSearch = useWidgetStore((s) => s.setSearch);
 
   const {
     handleSubmit,
     formState: { errors, isSubmitting },
     control,
-  } = useLocationsForm();
-  console.log(errors, "form errorrrsss");
+    watch,
+  } = useLocationsForm(search ?? undefined);
+
+  // Persist form values to store on every change
+  useEffect(() => {
+    const subscription = watch((values) => {
+      setSearch(values as LocationsFormData);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, setSearch]);
 
   const onSubmit = async () => {
     try {
