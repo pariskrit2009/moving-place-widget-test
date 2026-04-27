@@ -64,7 +64,7 @@ export default function SearchPage() {
               />
             </div>
 
-            <div className="rounded-2xl border border-[#2d6671] bg-[#f1faf9] px-3 py-4">
+            <div className="rounded-2xl border border-[#2d6671] bg-[#f1faf9] px-3 pb-4 pt-6">
               <div className="flex items-center gap-3">
                 <Icon
                   name="info"
@@ -77,6 +77,61 @@ export default function SearchPage() {
                   address. We&apos;ll match you with the right type of movers.
                 </p>
               </div>
+            </div>
+          </div>
+
+          <div className="bg-[#F8F8F8] flex flex-col items-start sm:items-center sm:text-center p-6 rounded-2xl">
+            <Icon name="advantage" size={64} aria-hidden="true" />
+            <h3 className="font-bold text-xl whitespace-pre-line pt-3 ">
+              {
+                "Book with The Nation's Largest\nMarketplace of Professional Movers"
+              }
+            </h3>
+            <p className="text-[#2E343E] text-sm pt-1">
+              Every booking includes the MovingPlace Advantage
+            </p>
+
+            <span className="font-bold py-4">
+              4.8 out of 5 on{" "}
+              <Icon
+                name="trustpilot"
+                width={97.71}
+                height={24}
+                className=" mb-2 "
+                aria-label="Trustpilot"
+              ></Icon>
+            </span>
+
+            <div className="flex md:flex-row flex-col gap-4" role="list">
+              <span>
+                <Icon
+                  name="shieldcheck"
+                  size={20}
+                  className="mb-1.5"
+                  aria-hidden="true"
+                />{" "}
+                Fully vetted movers
+              </span>
+              <span>
+                {" "}
+                <Icon
+                  name="star"
+                  size={20}
+                  className="mb-1.5"
+                  aria-hidden="true"
+                />{" "}
+                334,000+ authentic reviews
+              </span>
+              <span>
+                {" "}
+                <Icon
+                  name="tag"
+                  size={20}
+                  className="mb-1.5"
+                  aria-hidden="true"
+                />{" "}
+                No hidden fees
+              </span>
             </div>
           </div>
         </div>
