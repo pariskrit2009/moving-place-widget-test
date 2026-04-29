@@ -19,9 +19,7 @@ export function WidgetLayout({ children }: WidgetLayoutProps) {
         <div className="space-y-1"></div>
 
         <StepProgress />
-        <p className="text-sm font-normal text-[#677890] my-2">
-          Book your move in minutes
-        </p>
+
         {children}
       </div>
     </div>

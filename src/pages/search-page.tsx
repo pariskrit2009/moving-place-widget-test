@@ -39,12 +39,15 @@ export default function SearchPage() {
     <WidgetLayout>
       <div className="flex-1 flex flex-col">
         <div className="flex-1 space-y-6">
+          <p className="text-sm font-normal text-[#677890] mt-2 mb-1">
+            Book your move in minutes
+          </p>
           <div className="space-y-4">
             <h2 className="text-xl font-bold text-[#2e343e]">
               Where do you need help?
             </h2>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-3">
               <LocationSearchInput
                 control={control}
                 name="startLocation"
