@@ -22,6 +22,8 @@ type IconName = keyof typeof icons;
 interface IconProps extends SVGProps<SVGSVGElement> {
   name: IconName;
   size?: number;
+  width?: number | string;
+  height?: number | string;
 }
 
 export function Icon({

@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import type { Control, FieldValues, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import { X, Loader2, MapPin } from "lucide-react";
-import { Input } from "@/components/ui/input";
+
 import {
   Popover,
   PopoverContent,
@@ -18,6 +18,7 @@ import {
 import FieldError from "./FieldError";
 import { usePlaceSearch } from "@/features/search";
 import { useDebounce } from "@/hooks";
+import { LabelStackedInput } from "./LabelStackedInput";
 
 interface LocationSearchInputProps<T extends FieldValues> {
   control: Control<T>;
@@ -107,25 +108,18 @@ function LocationSearchInner({
 
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="mb-1.5 block text-xs font-semibold text-[#677890]"
-      >
-        {label}
-      </label>
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger className="w-full">
-          <div className="relative">
-            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#b1bbc8] pointer-events-none" />
-            <Input
+          <div className="relative w-full">
+            <LabelStackedInput
               id={id}
               value={inputValue}
               placeholder={placeholder}
               onChange={handleInputChange}
+              label={label}
               onBlur={() => {
                 field.onBlur();
               }}
-              className="pl-9 pr-8"
             />
             {inputValue && (
               <button
