@@ -1,12 +1,11 @@
-import { useEffect } from "react";
-import { Controller } from "react-hook-form";
-import { ArrowLeft, Package, Dumbbell, Info } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Controller, type Control } from "react-hook-form";
+import { ArrowLeft } from "lucide-react";
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -23,6 +22,164 @@ const PROPERTY_OPTIONS = [
   { value: "apartment", label: "Apartment / Condo" },
   { value: "storage", label: "Storage Unit" },
 ] as const;
+
+const BEDROOM_OPTIONS = [
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+  { value: "5+", label: "5+" },
+] as const;
+
+const FLOOR_OPTIONS = [
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3+", label: "3+" },
+] as const;
+
+const ELEVATOR_OPTIONS = [
+  { value: "yes", label: "Yes" },
+  { value: "no", label: "No" },
+] as const;
+
+interface LocationDetails {
+  bedrooms: string;
+  floors: string;
+  elevator: string;
+}
+
+type Option = { readonly value: string; readonly label: string };
+
+function SelectField({
+  id,
+  label,
+  value,
+  onValueChange,
+  options,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onValueChange: (v: string) => void;
+  options: readonly Option[];
+}) {
+  return (
+    <div className="flex-1">
+      <Label htmlFor={id} className="text-sm text-[#2e343e]">
+        {label} <span className="text-red-500">*</span>
+      </Label>
+      <Select value={value} onValueChange={onValueChange}>
+        <SelectTrigger id={id}>
+          <SelectValue placeholder="Select" />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+
+function LocationSection({
+  title,
+  propertyTypeName,
+  control,
+  propertyTypeError,
+  details,
+  setDetails,
+  propertyType,
+}: {
+  title: string;
+  propertyTypeName: "loadingPropertyType" | "unloadingPropertyType";
+  control: Control<LocationsFormData>;
+  propertyTypeError?: string;
+  details: LocationDetails;
+  setDetails: React.Dispatch<React.SetStateAction<LocationDetails>>;
+  propertyType: string | undefined;
+}) {
+  const showExtraFields =
+    propertyType === "house" || propertyType === "apartment";
+  const showElevator = propertyType === "apartment";
+
+  // Reset conditional fields when property type changes
+  useEffect(() => {
+    if (!showExtraFields) {
+      setDetails({ bedrooms: "", floors: "", elevator: "" });
+    } else if (!showElevator) {
+      setDetails((prev) => ({ ...prev, elevator: "" }));
+    }
+  }, [propertyType, showExtraFields, showElevator, setDetails]);
+
+  return (
+    <div className="space-y-2">
+      <Label className="text-sm font-semibold text-[#2e343e]">{title}</Label>
+      <div>
+        <Label htmlFor={propertyTypeName} className="text-sm text-[#2e343e]">
+          Property type <span className="text-red-500">*</span>
+        </Label>
+        <Controller
+          control={control}
+          name={propertyTypeName}
+          render={({ field }) => (
+            <Select value={field.value} onValueChange={field.onChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select" />
+              </SelectTrigger>
+              <SelectContent>
+                {PROPERTY_OPTIONS.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        />
+        <FieldError message={propertyTypeError} />
+      </div>
+
+      {showExtraFields && (
+        <>
+          <div className="flex flex-wrap gap-6">
+            <SelectField
+              id={`${propertyTypeName}-bedrooms`}
+              label="Number of bedrooms"
+              value={details.bedrooms}
+              onValueChange={(v) =>
+                setDetails((prev) => ({ ...prev, bedrooms: v }))
+              }
+              options={BEDROOM_OPTIONS}
+            />
+            <SelectField
+              id={`${propertyTypeName}-floors`}
+              label="Number of floors"
+              value={details.floors}
+              onValueChange={(v) =>
+                setDetails((prev) => ({ ...prev, floors: v }))
+              }
+              options={FLOOR_OPTIONS}
+            />
+          </div>
+          {showElevator && (
+            <SelectField
+              id={`${propertyTypeName}-elevator`}
+              label="Elevator"
+              value={details.elevator}
+              onValueChange={(v) =>
+                setDetails((prev) => ({ ...prev, elevator: v }))
+              }
+              options={ELEVATOR_OPTIONS}
+            />
+          )}
+        </>
+      )}
+    </div>
+  );
+}
 
 export default function LocationsPage() {
   const { navigateWithParams } = useNavigateWithParams();
@@ -43,12 +200,22 @@ export default function LocationsPage() {
     return () => subscription.unsubscribe();
   }, [watch, setLocations]);
 
-  const onSubmit = async () => {
-    try {
-      navigateWithParams("/quote");
-    } catch (error) {
-      console.error("Failed to submit locations:", error);
-    }
+  const loadingPropertyType = watch("loadingPropertyType");
+  const unloadingPropertyType = watch("unloadingPropertyType");
+
+  const [loadingDetails, setLoadingDetails] = useState<LocationDetails>({
+    bedrooms: "",
+    floors: "",
+    elevator: "",
+  });
+  const [unloadingDetails, setUnloadingDetails] = useState<LocationDetails>({
+    bedrooms: "",
+    floors: "",
+    elevator: "",
+  });
+
+  const onSubmit = () => {
+    navigateWithParams("/quote");
   };
 
   return (
@@ -64,146 +231,25 @@ export default function LocationsPage() {
             </p>
           </div>
 
-          {/* Loading location */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold text-[#2e343e]">
-              Loading location
-            </Label>
-            <div>
-              <Label
-                htmlFor="loadingPropertyType"
-                className="text-sm text-[#2e343e]"
-              >
-                Property type <span className="text-red-500">*</span>
-              </Label>
-              <Controller
-                control={control}
-                name="loadingPropertyType"
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {PROPERTY_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-              <FieldError message={errors.loadingPropertyType?.message} />
-            </div>
-          </div>
+          <LocationSection
+            title="Loading location"
+            propertyTypeName="loadingPropertyType"
+            control={control}
+            propertyTypeError={errors.loadingPropertyType?.message}
+            details={loadingDetails}
+            setDetails={setLoadingDetails}
+            propertyType={loadingPropertyType}
+          />
 
-          {/* Unloading location */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold text-[#2e343e]">
-              Unloading location
-            </Label>
-            <div>
-              <Label
-                htmlFor="unloadingPropertyType"
-                className="text-sm text-[#2e343e]"
-              >
-                Property type <span className="text-red-500">*</span>
-              </Label>
-              <Controller
-                control={control}
-                name="unloadingPropertyType"
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {PROPERTY_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-              <FieldError message={errors.unloadingPropertyType?.message} />
-            </div>
-          </div>
-
-          {/* Extras */}
-          <div className="space-y-3">
-            <Label className="text-sm font-semibold text-[#2e343e]">
-              Extras
-            </Label>
-
-            <div className="flex items-center gap-3 rounded-lg border border-[#e5e7eb] p-4">
-              <Controller
-                name="needsPacking"
-                control={control}
-                render={({ field }) => (
-                  <Checkbox
-                    id="needsPacking"
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    className="mt-1 data-[state=checked]:bg-[#3799a3] data-[state=checked]:border-[#3799a3]"
-                  />
-                )}
-              />
-              <div className="flex items-center gap-3 flex-1">
-                <Package className="h-6 w-6 shrink-0 text-[#3799a3]" />
-                <div>
-                  <Label
-                    htmlFor="needsPacking"
-                    className="cursor-pointer text-sm font-semibold text-[#2e343e]"
-                  >
-                    I need help packing
-                  </Label>
-                  <p className="text-sm font-normal text-[#677890] mt-0.5">
-                    Help boxing up your kitchen, wardrobe, or entire home.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 rounded-lg border border-[#e5e7eb] p-4">
-              <Controller
-                name="needsHeavyItems"
-                control={control}
-                render={({ field }) => (
-                  <Checkbox
-                    id="needsHeavyItems"
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    className="mt-1 data-[state=checked]:bg-[#3799a3] data-[state=checked]:border-[#3799a3]"
-                  />
-                )}
-              />
-              <div className="flex items-center gap-3 flex-1">
-                <Dumbbell className="h-6 w-6 shrink-0 text-[#3799a3]" />
-                <div>
-                  <Label
-                    htmlFor="needsHeavyItems"
-                    className="cursor-pointer text-sm font-semibold text-[#2e343e]"
-                  >
-                    I need to move heavy items
-                  </Label>
-                  <p className="text-sm font-normal text-[#677890] mt-0.5">
-                    Pianos, disassembled pool tables (no slate), or large items
-                    that take a few people to lift
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                className="mt-1 shrink-0"
-                aria-label="Info about heavy items"
-              >
-                <Info className="h-4 w-4 text-[#3799a3]" />
-              </button>
-            </div>
-          </div>
+          <LocationSection
+            title="Unloading location"
+            propertyTypeName="unloadingPropertyType"
+            control={control}
+            propertyTypeError={errors.unloadingPropertyType?.message}
+            details={unloadingDetails}
+            setDetails={setUnloadingDetails}
+            propertyType={unloadingPropertyType}
+          />
         </div>
 
         <StickyFooter>
@@ -211,7 +257,7 @@ export default function LocationsPage() {
             <Button
               variant="link"
               onClick={() => navigateWithParams("/")}
-              className=" h-12 rounded-full border-transparent text-[#2e343e]"
+              className="h-12 rounded-full border-transparent text-[#2e343e]"
             >
               <ArrowLeft className="h-4 w-4" />
               Back
