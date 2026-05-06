@@ -27,14 +27,16 @@ export function WidgetLayout({
         <div className="space-y-1"></div>
 
         <div className="flex justify-between gap-3 w-full mb-2">
-          <Button
-            variant="outline"
-            onClick={navigateBack}
-            className="h-12 rounded-full border-transparent text-[#2e343e] "
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </Button>
+          {navigateBack && (
+            <Button
+              variant="outline"
+              onClick={navigateBack}
+              className="h-12 rounded-full border-transparent text-[#2e343e] "
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Button>
+          )}
           <StepProgress />
           <Button
             variant="cta"
