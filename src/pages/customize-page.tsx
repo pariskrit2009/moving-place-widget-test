@@ -1,16 +1,13 @@
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
-import StickyFooter from "@/components/layout/StickyFooter";
-import { Button } from "@/components/ui/button";
 import FormSection from "@/components/form/FormSection";
-import { useSubmitCustomization } from "@/features/customize/hooks";
 import { useCustomizeForm } from "@/features/customize/useCustomizeForm";
 
 export default function CustomizePage() {
   const { navigateWithParams } = useNavigateWithParams();
   const { handleSubmit } = useCustomizeForm();
   // const { data: availableServices, isLoading } = useAvailableServices(selectedQuote?.id || "");
-  const submitCustomization = useSubmitCustomization();
+  // const submitCustomization = useSubmitCustomization();
   const isLoading = false;
   const onSubmit = async () => {
     try {
@@ -22,7 +19,10 @@ export default function CustomizePage() {
   };
 
   return (
-    <WidgetLayout>
+    <WidgetLayout
+      onContinue={handleSubmit(onSubmit)}
+      navigateBack={() => navigateWithParams("/quote")}
+    >
       <FormSection
         title="Customize Your Move"
         description="Select additional services for your move"
@@ -69,29 +69,6 @@ export default function CustomizePage() {
           </div>
         )}
       </FormSection>
-
-      <StickyFooter>
-        <div className="flex gap-2">
-          <Button
-            variant="secondary"
-            onClick={() => navigateWithParams("/quote")}
-            className="flex-1"
-          >
-            Back
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={handleSubmit(onSubmit)}
-            disabled={submitCustomization.isPending}
-            className="flex-1"
-            size="lg"
-          >
-            {submitCustomization.isPending
-              ? "Submitting..."
-              : "Continue to Checkout"}
-          </Button>
-        </div>
-      </StickyFooter>
     </WidgetLayout>
   );
 }

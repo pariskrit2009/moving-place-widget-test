@@ -1,6 +1,5 @@
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
-import StickyFooter from "@/components/layout/StickyFooter";
 import { Button } from "@/components/ui/button";
 import FormSection from "@/components/form/FormSection";
 import { StarRating } from "@/components/ui/star-rating";
@@ -29,7 +28,10 @@ export default function QuotePage() {
   // };
 
   return (
-    <WidgetLayout>
+    <WidgetLayout
+      onContinue={handleContinue}
+      navigateBack={() => navigateWithParams("/location")}
+    >
       <FormSection
         title="Mover Quotes"
         description="Compare quotes from top-rated moving companies"
@@ -96,26 +98,6 @@ export default function QuotePage() {
           <div className="text-center py-8">No quotes available</div>
         )} */}
       </FormSection>
-
-      <StickyFooter>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={() => navigateWithParams("/location")}
-            className="flex-1"
-          >
-            Back
-          </Button>
-          <Button
-            onClick={handleContinue}
-            disabled={false}
-            className="flex-1"
-            size="lg"
-          >
-            Continue
-          </Button>
-        </div>
-      </StickyFooter>
     </WidgetLayout>
   );
 }
