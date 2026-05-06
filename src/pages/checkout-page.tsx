@@ -1,13 +1,10 @@
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
-import StickyFooter from "@/components/layout/StickyFooter";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import FormSection from "@/components/form/FormSection";
 import FieldError from "@/components/form/FieldError";
 import { postComplete } from "@/lib/utils/messaging";
-import { useSubmitBooking } from "@/features/checkout/hooks";
 import { useCheckoutForm } from "@/features/checkout/useCheckoutForm";
 import { Input } from "@/components/ui/input";
 
@@ -17,10 +14,10 @@ export default function CheckoutPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useCheckoutForm();
   // const validateBooking = useValidateBooking();
-  const submitBooking = useSubmitBooking();
+  // const submitBooking = useSubmitBooking();
 
   const onSubmit = async () => {
     try {
@@ -52,7 +49,10 @@ export default function CheckoutPage() {
   };
 
   return (
-    <WidgetLayout>
+    <WidgetLayout
+      onContinue={handleSubmit(onSubmit)}
+      navigateBack={() => navigateWithParams("/customize")}
+    >
       <FormSection
         title="Checkout"
         description="Enter your contact information to complete the booking"
@@ -103,29 +103,6 @@ export default function CheckoutPage() {
           </CardContent>
         </Card>
       </FormSection>
-
-      <StickyFooter>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={() => navigateWithParams("/customize")}
-            className="flex-1"
-          >
-            Back
-          </Button>
-          <Button
-            type="submit"
-            onClick={handleSubmit(onSubmit)}
-            disabled={isSubmitting || submitBooking.isPending}
-            className="flex-1"
-            size="lg"
-          >
-            {isSubmitting || submitBooking.isPending
-              ? "Processing..."
-              : "Complete Booking"}
-          </Button>
-        </div>
-      </StickyFooter>
     </WidgetLayout>
   );
 }

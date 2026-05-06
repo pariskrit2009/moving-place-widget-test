@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { Controller, type Control } from "react-hook-form";
-import { ArrowLeft } from "lucide-react";
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
-import StickyFooter from "@/components/layout/StickyFooter";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -188,7 +185,7 @@ export default function LocationsPage() {
 
   const {
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     control,
     watch,
   } = useLocationsForm(locations ?? undefined);
@@ -218,8 +215,15 @@ export default function LocationsPage() {
     navigateWithParams("/quote");
   };
 
+  const navigateBack = () => {
+    navigateWithParams("/");
+  };
+
   return (
-    <WidgetLayout>
+    <WidgetLayout
+      onContinue={handleSubmit(onSubmit)}
+      navigateBack={navigateBack}
+    >
       <div className="flex-1 flex flex-col">
         <div className="flex-1 space-y-6">
           <div className="space-y-1">
@@ -251,27 +255,6 @@ export default function LocationsPage() {
             propertyType={unloadingPropertyType}
           />
         </div>
-
-        <StickyFooter>
-          <div className="flex justify-between gap-3 w-full">
-            <Button
-              variant="link"
-              onClick={() => navigateWithParams("/")}
-              className="h-12 rounded-full border-transparent text-[#2e343e]"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back
-            </Button>
-            <Button
-              variant="cta"
-              onClick={handleSubmit(onSubmit)}
-              disabled={isSubmitting}
-              className="h-12"
-            >
-              {isSubmitting ? "Loading..." : "Continue"}
-            </Button>
-          </div>
-        </StickyFooter>
       </div>
     </WidgetLayout>
   );

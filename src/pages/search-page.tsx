@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
-import StickyFooter from "@/components/layout/StickyFooter";
-import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { LocationSearchInput } from "@/components/form/LocationSearchInput";
 import { useLocationsForm, type LocationsFormData } from "@/features/search";
@@ -14,7 +12,7 @@ export default function SearchPage() {
 
   const {
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     control,
     watch,
   } = useLocationsForm(search ?? undefined);
@@ -36,7 +34,7 @@ export default function SearchPage() {
   };
 
   return (
-    <WidgetLayout>
+    <WidgetLayout onContinue={handleSubmit(onSubmit)}>
       <div className="flex-1 flex flex-col">
         <div className="flex-1 space-y-6">
           <p className="text-sm font-normal text-[#677890] mt-2 mb-1">
@@ -139,7 +137,7 @@ export default function SearchPage() {
           </div>
         </div>
 
-        <StickyFooter className=" self-end">
+        {/* <StickyFooter className=" self-end">
           <Button
             type="submit"
             variant="cta"
@@ -149,7 +147,7 @@ export default function SearchPage() {
           >
             {isSubmitting ? "Loading..." : "Continue"}
           </Button>
-        </StickyFooter>
+        </StickyFooter> */}
       </div>
     </WidgetLayout>
   );
