@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   server: {
+    host: "0.0.0.0",
     cors: true,
   },
   build: {
