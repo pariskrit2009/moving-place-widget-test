@@ -13,6 +13,9 @@ import {
 import FieldError from "@/components/form/FieldError";
 import { useLocationsForm, type LocationsFormData } from "@/features/locations";
 import { useWidgetStore } from "@/store";
+import { LabelStackedField } from "@/components/form/LabelStackedField";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Icon } from "@/components/ui/icon";
 
 const PROPERTY_OPTIONS = [
   { value: "house", label: "House" },
@@ -62,21 +65,20 @@ function SelectField({
 }) {
   return (
     <div className="flex-1">
-      <Label htmlFor={id} className="text-sm text-[#2e343e]">
-        {label} <span className="text-red-500">*</span>
-      </Label>
-      <Select value={value} onValueChange={onValueChange}>
-        <SelectTrigger id={id}>
-          <SelectValue placeholder="Select" />
-        </SelectTrigger>
-        <SelectContent>
-          {options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <LabelStackedField id={id} required label={label}>
+        <Select value={value} onValueChange={onValueChange}>
+          <SelectTrigger id={id} className="pb-[7px] pt-7">
+            <SelectValue placeholder="Select" />
+          </SelectTrigger>
+          <SelectContent>
+            {options.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </LabelStackedField>
     </div>
   );
 }
@@ -113,27 +115,30 @@ function LocationSection({
 
   return (
     <div className="space-y-2">
-      <Label className="text-sm font-semibold text-[#2e343e]">{title}</Label>
-      <div>
-        <Label htmlFor={propertyTypeName} className="text-sm text-[#2e343e]">
-          Property type <span className="text-red-500">*</span>
-        </Label>
+      <Label className="text-xl font-bold text-[#2e343e]">{title}</Label>
+      <div className="pt-4">
         <Controller
           control={control}
           name={propertyTypeName}
           render={({ field }) => (
-            <Select value={field.value} onValueChange={field.onChange}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                {PROPERTY_OPTIONS.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <LabelStackedField
+              id={propertyTypeName}
+              required
+              label="Property Type"
+            >
+              <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger className="h-14 pb-[7px] pt-7">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  {PROPERTY_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </LabelStackedField>
           )}
         />
         <FieldError message={propertyTypeError} />
@@ -254,6 +259,30 @@ export default function LocationsPage() {
             setDetails={setUnloadingDetails}
             propertyType={unloadingPropertyType}
           />
+
+          <div className="relative">
+            <Label className="text-xl font-bold text-[#2e343e]">Extras</Label>
+            <div className="border border-input mt-4 rounded-2xl px-3 py-[18.5px] flex items-center gap-3">
+              <Checkbox />
+              <div className="size-[30px] bg-[#F1FAF9] text-center rounded-full">
+                <Icon name="extras" />
+              </div>
+              <div>
+                <p className="text-[#2E343E]  font-bold">
+                  I need to move heavy items
+                </p>
+                <p className="text-[#677890] text-sm">
+                  Pianos, disassembled pool tables (no slate), or large items
+                  that take a few people to lift
+                </p>
+              </div>
+              <Icon
+                name="info"
+                size={20}
+                className="absolute translate-y-1/2 top-1/2 right-3"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </WidgetLayout>

@@ -18,7 +18,8 @@ import {
 import FieldError from "./FieldError";
 import { usePlaceSearch } from "@/features/search";
 import { useDebounce } from "@/hooks";
-import { LabelStackedInput } from "./LabelStackedInput";
+import { LabelStackedField } from "./LabelStackedField";
+import { Input } from "../ui/input";
 
 interface LocationSearchInputProps<T extends FieldValues> {
   control: Control<T>;
@@ -111,16 +112,18 @@ function LocationSearchInner({
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger className="w-full">
           <div className="relative w-full">
-            <LabelStackedInput
-              id={id}
-              value={inputValue}
-              placeholder={placeholder}
-              onChange={handleInputChange}
-              label={label}
-              onBlur={() => {
-                field.onBlur();
-              }}
-            />
+            <LabelStackedField label={label} id={id}>
+              <Input
+                id={id}
+                value={inputValue}
+                placeholder={placeholder}
+                onChange={handleInputChange}
+                autoComplete="off"
+                onBlur={() => {
+                  field.onBlur();
+                }}
+              />
+            </LabelStackedField>
             {inputValue && (
               <button
                 type="button"
