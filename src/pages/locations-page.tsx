@@ -212,7 +212,7 @@ export default function LocationsPage() {
   });
 
   const onSubmit = () => {
-    navigateWithParams("/quote");
+    navigateWithParams("/move-option");
   };
 
   const navigateBack = () => {
