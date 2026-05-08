@@ -1,0 +1,17 @@
+{
+  "name": "loader",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 3001",
+    "dev:integration": "vite build && vite preview --host 0.0.0.0 --port 3001"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.0"
+  }
+}

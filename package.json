@@ -13,7 +13,8 @@
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
     "typecheck": "tsc --noEmit",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:integration": "npm run build --prefix partner-site/loader && concurrently --kill-others \"npm run preview --prefix partner-site/loader\" \"npm run dev\" \"npm run dev --prefix partner-site\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -58,6 +59,7 @@
     "typescript-eslint": "^8.56.1",
     "vite": "^8.0.0",
     "vite-plugin-svgr": "^5.2.0",
-    "vitest": "^3.0.0"
+    "vitest": "^3.0.0",
+    "concurrently": "^9.1.2"
   }
 }

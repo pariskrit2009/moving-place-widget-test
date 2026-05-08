@@ -1,0 +1,7 @@
+{
+  "name": "partner-site",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve -l 8080 --cors"
+  }
+}
