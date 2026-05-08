@@ -6,6 +6,7 @@ import TrustPilotIcon from "@/assets/trustpilot.svg?react";
 import StarIcon from "@/assets/star.svg?react";
 import TagIcon from "@/assets/tag.svg?react";
 import ShieldCheckIcon from "@/assets/shield-check.svg?react";
+import ExtrasIcon from "@/assets/extras.svg?react";
 import { cn } from "@/lib/utils";
 
 const icons = {
@@ -15,6 +16,7 @@ const icons = {
   shieldcheck: ShieldCheckIcon,
   star: StarIcon,
   tag: TagIcon,
+  extras: ExtrasIcon,
 } as const;
 
 type IconName = keyof typeof icons;
