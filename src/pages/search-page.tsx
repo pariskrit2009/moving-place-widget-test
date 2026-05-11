@@ -36,8 +36,8 @@ export default function SearchPage() {
   return (
     <WidgetLayout onContinue={handleSubmit(onSubmit)}>
       <div className="flex-1 flex flex-col">
-        <div className="flex-1 space-y-6">
-          <p className="text-sm font-normal text-[#677890] mt-2 mb-1">
+        <div className="flex-1 sm:space-y-6">
+          <p className="text-sm font-normal text-[#677890] mt-2 sm:mb-1">
             Book your move in minutes
           </p>
           <div className="space-y-4">
@@ -65,7 +65,7 @@ export default function SearchPage() {
               />
             </div>
 
-            <div className="rounded-2xl border border-[#2d6671] bg-[#f1faf9] px-3 pb-4 pt-6">
+            <div className="rounded-2xl border border-[#2d6671] bg-[#f1faf9] px-3 py-4">
               <div className="flex items-center gap-3">
                 <Icon
                   name="info"
@@ -73,9 +73,9 @@ export default function SearchPage() {
                   className="shrink-0 text-[#2d6671] mt-0.5"
                 />
                 <p className="text-sm font-normal leading-relaxed text-[#677890]">
-                  For a full move, please provide both locations. If you only
-                  need help with loading or unloading, just enter the relevant
-                  address. We&apos;ll match you with the right type of movers.
+                  If you only need help with loading or unloading, just enter
+                  the relevant address. We&apos;ll match you with the right type
+                  of movers.
                 </p>
               </div>
             </div>

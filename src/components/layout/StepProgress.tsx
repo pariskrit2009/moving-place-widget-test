@@ -5,8 +5,8 @@ export function StepProgress() {
   const { currentStep, totalSteps } = useWidgetState();
 
   return (
-    <div className="flex items-center gap-3 flex-1">
-      <div className="flex flex-1 gap-1.5">
+    <div className="flex items-center gap-3 sm:flex-1">
+      <div className=" flex-1 gap-1.5 hidden sm:flex">
         {Array.from({ length: totalSteps }, (_, index) => (
           <div
             key={index}
@@ -19,7 +19,8 @@ export function StepProgress() {
         ))}
       </div>
       <span className="shrink-0 text-sm font-normal text-[#677890]">
-        Step <span className="font-bold">{currentStep}</span> / {totalSteps}
+        Step <span className="font-bold text-[#3799A3]">{currentStep}</span> /{" "}
+        {totalSteps}
       </span>
     </div>
   );

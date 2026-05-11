@@ -31,7 +31,7 @@ export function WidgetLayout({
             <Button
               variant="outline"
               onClick={navigateBack}
-              className="h-12 rounded-full border-transparent text-[#2e343e] "
+              className=" rounded-full border-transparent text-[#2e343e] "
             >
               <ArrowLeft className="h-4 w-4" />
               Back
@@ -42,7 +42,6 @@ export function WidgetLayout({
             variant="cta"
             onClick={onContinue}
             // disabled={isSubmitting}
-            className="h-12"
           >
             Continue
           </Button>
