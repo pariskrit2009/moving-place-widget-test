@@ -40,7 +40,7 @@ export function DatePickerModal({
           disabled={{ before: minDate || new Date() }}
           navLayout="around"
           showOutsideDays
-          captionLayout="dropdown"
+          // captionLayout="dropdown"
         />
       </PopoverContent>
     </Popover>

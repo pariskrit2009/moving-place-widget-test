@@ -21,7 +21,7 @@ function LabelStackedField({
         <label
           htmlFor={id}
           className={cn(
-            "absolute left-3 text-[#677890] top-[7px] text-xs font-semibold",
+            "absolute left-3 text-[#677890] top-[7px] text-xs font-semibold z-10",
           )}
         >
           {label}
