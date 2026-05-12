@@ -1,0 +1,112 @@
+import { useEffect } from "react";
+import { useNavigateWithParams } from "@/hooks";
+import WidgetLayout from "@/components/layout/WidgetLayout";
+import { DatePickerInput } from "@/components/form/DatePickerInput";
+import { useMovingDateForm, type MovingDateFormData } from "@/features/moving";
+import { useWidgetStore } from "@/store";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Controller } from "react-hook-form";
+
+export default function MovingPage() {
+  const { navigateWithParams } = useNavigateWithParams();
+  const movingDateData = useWidgetStore((s) => s.movingDateData);
+  const setMovingDateData = useWidgetStore((s) => s.setMovingDateData);
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+    watch,
+  } = useMovingDateForm(movingDateData ?? undefined);
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      setMovingDateData(values as MovingDateFormData);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, setMovingDateData]);
+
+  const hasDifferentDates = watch("hasDifferentDates");
+
+  const onSubmit = () => {
+    navigateWithParams("/move-option");
+  };
+
+  const navigateBack = () => {
+    navigateWithParams("/location");
+  };
+
+  return (
+    <WidgetLayout
+      onContinue={handleSubmit(onSubmit)}
+      navigateBack={navigateBack}
+    >
+      <div className="flex-1 flex flex-col">
+        <div className="flex-1 space-y-6">
+          <div className="space-y-1">
+            <h2 className="text-xl font-bold text-[#2e343e]">
+              When are you moving?
+            </h2>
+            <p className="text-sm font-normal text-[#677890]">
+              Select your preferred moving date
+            </p>
+          </div>
+
+          {!hasDifferentDates && (
+            <div className="w-1/2">
+              <DatePickerInput
+                control={control}
+                name="movingDate"
+                label="Moving date"
+                id="movingDate"
+                error={errors.movingDate?.message}
+                minDate={new Date()}
+              />
+            </div>
+          )}
+
+          {hasDifferentDates && (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <DatePickerInput
+                control={control}
+                name="loadingDate"
+                label="Loading date"
+                id="loadingDate"
+                error={errors.loadingDate?.message}
+                minDate={new Date()}
+              />
+              <DatePickerInput
+                control={control}
+                name="unloadingDate"
+                label="Unloading date"
+                id="unloadingDate"
+                error={errors.unloadingDate?.message}
+                minDate={new Date()}
+              />
+            </div>
+          )}
+
+          <Controller
+            control={control}
+            name="hasDifferentDates"
+            render={({ field }) => (
+              <div className="flex items-center gap-3">
+                <Checkbox
+                  id="hasDifferentDates"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+                <label
+                  htmlFor="hasDifferentDates"
+                  className="text-sm font-medium text-[#2e343e] cursor-pointer"
+                >
+                  I need different dates for loading and unloading
+                </label>
+              </div>
+            )}
+          />
+        </div>
+      </div>
+    </WidgetLayout>
+  );
+}

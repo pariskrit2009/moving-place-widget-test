@@ -156,7 +156,7 @@ export default function MoveOptionPage() {
   };
 
   const navigateBack = () => {
-    navigateWithParams("/location");
+    navigateWithParams("/moving");
   };
 
   return (

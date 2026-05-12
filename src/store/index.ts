@@ -6,6 +6,7 @@ import {
   createLocationsSlice,
   type LocationsSlice,
 } from "@/features/locations";
+import { createMovingSlice, type MovingSlice } from "@/features/moving";
 import {
   createMoveOptionSlice,
   type MoveOptionSlice,
@@ -19,6 +20,7 @@ import { createCheckoutSlice, type CheckoutSlice } from "@/features/checkout";
 
 export type WidgetStore = SearchSlice &
   LocationsSlice &
+  MovingSlice &
   MoveOptionSlice &
   QuoteSlice &
   CustomizeSlice &
@@ -27,6 +29,7 @@ export type WidgetStore = SearchSlice &
 const PERSIST_KEYS: (keyof WidgetStore)[] = [
   "search",
   "locations",
+  "movingDateData",
   "selectedMoveOption",
   "quotes",
   "selectedQuoteId",
@@ -40,6 +43,7 @@ export const useWidgetStore = create<WidgetStore>()(
       (...a) => ({
         ...createSearchSlice(...a),
         ...createLocationsSlice(...a),
+        ...createMovingSlice(...a),
         ...createMoveOptionSlice(...a),
         ...createQuoteSlice(...a),
         ...createCustomizeSlice(...a),

@@ -217,7 +217,7 @@ export default function LocationsPage() {
   });
 
   const onSubmit = () => {
-    navigateWithParams("/move-option");
+    navigateWithParams("/moving");
   };
 
   const navigateBack = () => {
