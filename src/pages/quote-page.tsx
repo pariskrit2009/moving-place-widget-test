@@ -68,7 +68,7 @@ export default function QuotePage() {
         </Button>
 
         <StarRating rating={5} />
-        <div className="border border-black h-80">
+        <div className="h-80">
           <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <PopoverTrigger asChild>
               <Button variant="outline" className="gap-1">
