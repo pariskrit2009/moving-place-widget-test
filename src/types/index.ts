@@ -44,6 +44,7 @@ export interface CheckoutData {
 export type PageRoute =
   | "/"
   | "/location"
+  | "/moving"
   | "/move-option"
   | "/quote"
   | "/customize"
