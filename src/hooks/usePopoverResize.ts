@@ -3,7 +3,7 @@ import { postResize } from "@/lib/utils/messaging";
 
 const DEFAULT_POPOVER_SELECTOR = "#popover-content";
 const DEFAULT_IFRAME_HEIGHT = 694;
-const BOTTOM_BUFFER = 16;
+const BOTTOM_BUFFER = 84;
 
 interface UsePopoverResizeOptions {
   isPopoverOpen: boolean;
@@ -34,8 +34,9 @@ export function usePopoverResize({
 
         const popoverRect = popover.getBoundingClientRect();
         const iframeHeight = window.innerHeight;
-        const requiredHeight = Math.ceil(popoverRect.bottom + BOTTOM_BUFFER);
-
+        const requiredHeight = Math.ceil(
+          popoverRect.height + popoverRect.bottom + BOTTOM_BUFFER,
+        );
         if (requiredHeight > iframeHeight) {
           postResize(hostOrigin, requiredHeight);
         }

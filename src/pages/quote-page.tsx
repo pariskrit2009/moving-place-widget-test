@@ -51,8 +51,15 @@ export default function QuotePage() {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { hostOrigin } = useWidgetParams();
+  const contentHeight = document
+    .querySelector<HTMLElement>("#widget-content")
+    ?.getBoundingClientRect().height;
 
-  usePopoverResize({ isPopoverOpen, hostOrigin });
+  usePopoverResize({
+    isPopoverOpen,
+    hostOrigin,
+    defaultIframeHeight: contentHeight,
+  });
 
   const handleContinue = () => {
     navigateWithParams("/customize");
