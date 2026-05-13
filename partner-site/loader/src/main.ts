@@ -54,7 +54,7 @@ function createIframe(config: LoaderConfig): HTMLIFrameElement {
   const iframe = document.createElement("iframe");
   iframe.src = `${config.widgetOrigin}/?${params.toString()}`;
   iframe.style.width = "100%";
-  iframe.style.height = config.height || "794px";
+  iframe.style.height = config.height || "640px";
   iframe.style.border = "0";
   iframe.style.display = "block";
   iframe.setAttribute("scrolling", "no");
