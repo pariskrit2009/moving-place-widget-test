@@ -2,15 +2,19 @@ export function postResize(hostOrigin: string, height?: number) {
   if (!hostOrigin || window.parent === window) {
     return;
   }
-  const widget = document.querySelector("#widget-content");
 
-  // window.parent.postMessage(
-  //   {
-  //     type: "WIDGET_RESIZE",
-  //     payload: { height: Math.ceil(cappedHeight ?? 0) },
-  //   },
-  //   hostOrigin,
-  // );
+  const resolvedHeight =
+    height ??
+    document.querySelector("#widget-content")?.getBoundingClientRect().height ??
+    0;
+
+  window.parent.postMessage(
+    {
+      type: "WIDGET_RESIZE",
+      payload: { height: Math.ceil(resolvedHeight) },
+    },
+    hostOrigin,
+  );
 }
 
 export function postComplete(payload: { mode: "quote-only" | "checkout" }) {

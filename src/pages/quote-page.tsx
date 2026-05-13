@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { useNavigateWithParams } from "@/hooks";
+import {
+  useNavigateWithParams,
+  usePopoverResize,
+  useWidgetParams,
+} from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import { Button } from "@/components/ui/button";
 import FormSection from "@/components/form/FormSection";
@@ -44,6 +48,9 @@ export default function QuotePage() {
   const { navigateWithParams } = useNavigateWithParams();
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const { hostOrigin } = useWidgetParams();
+
+  usePopoverResize({ isPopoverOpen, hostOrigin });
 
   const handleContinue = () => {
     navigateWithParams("/customize");
@@ -68,7 +75,7 @@ export default function QuotePage() {
         </Button>
 
         <StarRating rating={5} />
-        <div className="h-80">
+        <div className="">
           <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <PopoverTrigger asChild>
               <Button variant="outline" className="gap-1">
@@ -79,6 +86,7 @@ export default function QuotePage() {
             <PopoverContent
               className="w-[calc(100vw-2rem)] max-w-[576px] rounded-3xl border-[#eceef2] bg-[#f8f8f8] p-0 shadow-[0px_4px_6px_-1px_rgba(18,18,23,0.08),0px_2px_4px_-1px_rgba(18,18,23,0.06)]"
               align="start"
+              id="popover-content"
             >
               <button
                 onClick={() => setIsPopoverOpen(false)}
@@ -92,8 +100,8 @@ export default function QuotePage() {
                   Price details
                 </h2>
 
-                <div className="flex flex-col gap-2">
-                  <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 ">
+                  <div className="flex flex-col gap-2 ">
                     {priceBreakdown.map((item) => (
                       <div key={item.id} className="flex flex-col">
                         <button
@@ -151,6 +159,75 @@ export default function QuotePage() {
                       </span>
                     </div>
                   </div>
+                  <div className="flex flex-col">
+                    <div className="flex items-center justify-between py-2">
+                      <span className="text-base font-bold text-[#2e343e]">
+                        Order total
+                      </span>
+                      <span className="text-base font-bold text-[#2e343e]">
+                        $830.00
+                      </span>
+                    </div>
+                    <div className="flex items-start justify-between py-2">
+                      <div className="flex flex-col">
+                        <span className="text-base font-bold text-[#3290a2]">
+                          Due now
+                        </span>
+                        <span className="text-sm leading-[18px] text-[#677890]">
+                          No charges until the day before the move
+                        </span>
+                      </div>
+                      <span className="whitespace-nowrap text-base font-bold text-[#3290a2]">
+                        $0.00
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex items-center justify-between py-2">
+                      <span className="text-base font-bold text-[#2e343e]">
+                        Order total
+                      </span>
+                      <span className="text-base font-bold text-[#2e343e]">
+                        $830.00
+                      </span>
+                    </div>
+                    <div className="flex items-start justify-between py-2">
+                      <div className="flex flex-col">
+                        <span className="text-base font-bold text-[#3290a2]">
+                          Due now
+                        </span>
+                        <span className="text-sm leading-[18px] text-[#677890]">
+                          No charges until the day before the move
+                        </span>
+                      </div>
+                      <span className="whitespace-nowrap text-base font-bold text-[#3290a2]">
+                        $0.00
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex items-center justify-between py-2">
+                      <span className="text-base font-bold text-[#2e343e]">
+                        Order total
+                      </span>
+                      <span className="text-base font-bold text-[#2e343e]">
+                        $830.00
+                      </span>
+                    </div>
+                    <div className="flex items-start justify-between py-2">
+                      <div className="flex flex-col">
+                        <span className="text-base font-bold text-[#3290a2]">
+                          Due now
+                        </span>
+                        <span className="text-sm leading-[18px] text-[#677890]">
+                          No charges until the day before the move
+                        </span>
+                      </div>
+                      <span className="whitespace-nowrap text-base font-bold text-[#3290a2]">
+                        $0.00
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex items-start gap-2 rounded-2xl bg-[#f1faf9] px-4 py-3">
@@ -164,6 +241,12 @@ export default function QuotePage() {
             </PopoverContent>
           </Popover>
         </div>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis,
+          dolore. Iure, ratione eligendi quia vero eaque ad aperiam explicabo.
+          Fuga recusandae ullam quae at ratione nobis doloribus reprehenderit
+          dolore ea?
+        </p>
 
         {/* {isLoading ? (
           <div className="text-center py-8">Loading quotes...</div>
