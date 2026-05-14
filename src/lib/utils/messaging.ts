@@ -2,15 +2,16 @@ export function postResize(hostOrigin: string, height?: number) {
   if (!hostOrigin || window.parent === window) {
     return;
   }
-  const widget = document.querySelector("#widget-content");
-  const cappedHeight = height && height > 600 ? 600 : height;
 
-  if (height === 600) widget?.classList.add("overflow-y-auto");
+  const resolvedHeight =
+    height ??
+    document.querySelector("#widget-content")?.getBoundingClientRect().height ??
+    0;
 
   window.parent.postMessage(
     {
       type: "WIDGET_RESIZE",
-      payload: { height: Math.ceil(cappedHeight ?? 0) },
+      payload: { height: Math.ceil(resolvedHeight) },
     },
     hostOrigin,
   );
