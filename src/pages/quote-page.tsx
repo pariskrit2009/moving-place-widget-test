@@ -263,7 +263,7 @@ export default function QuotePage() {
               className="max-w-[576px] rounded-3xl border-[#eceef2] bg-[#f8f8f8] p-0 shadow-[0px_4px_6px_-1px_rgba(18,18,23,0.08),0px_2px_4px_-1px_rgba(18,18,23,0.06)]"
               showCloseButton={false}
             >
-              <div className="max-h-[calc(100vh-6rem)] overflow-y-auto">
+              <div className="">
                 <button
                   onClick={() => setIsModalOpen(false)}
                   className="absolute right-[15px] top-[15px] z-10"
