@@ -57,6 +57,7 @@ function createIframe(config: LoaderConfig): HTMLIFrameElement {
   iframe.style.height = config.height || "640px";
   iframe.style.border = "0";
   iframe.style.display = "block";
+  iframe.style.borderRadius = "16px";
   iframe.setAttribute("scrolling", "no");
   iframe.setAttribute("title", "Moving Place Widget");
 
