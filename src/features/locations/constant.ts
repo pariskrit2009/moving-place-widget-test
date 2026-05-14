@@ -1,0 +1,26 @@
+const PROPERTY_OPTIONS = [
+  { value: "house", label: "House" },
+  { value: "apartment", label: "Apartment / Condo" },
+  { value: "storage", label: "Storage Unit" },
+] as const;
+
+const BEDROOM_OPTIONS = [
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+  { value: "5+", label: "5+" },
+] as const;
+
+const FLOOR_OPTIONS = [
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3+", label: "3+" },
+] as const;
+
+const ELEVATOR_OPTIONS = [
+  { value: "yes", label: "Yes" },
+  { value: "no", label: "No" },
+] as const;
+
+export { ELEVATOR_OPTIONS, FLOOR_OPTIONS, BEDROOM_OPTIONS, PROPERTY_OPTIONS };
