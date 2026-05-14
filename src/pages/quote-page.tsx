@@ -72,7 +72,7 @@ export default function QuotePage() {
   return (
     <WidgetLayout
       onContinue={handleContinue}
-      navigateBack={() => navigateWithParams("/move-option")}
+      navigateBack={() => navigateWithParams("/movers")}
     >
       <FormSection
         title="Mover Quotes"
