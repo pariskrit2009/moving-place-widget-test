@@ -1,14 +1,18 @@
+import type { ReactNode } from "react";
+
 export function TrustBadge({
-  icon,
+  children,
   label,
 }: {
-  icon: React.ReactNode;
+  children: ReactNode;
   label: string;
 }) {
   return (
     <div className="flex items-center gap-1">
-      {icon}
-      <span className="text-sm font-semibold text-gray-800">{label}</span>
+      {children}
+      <span className="text-sm font-semibold text-primary-foreground">
+        {label}
+      </span>
     </div>
   );
 }

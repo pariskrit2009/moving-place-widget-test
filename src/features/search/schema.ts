@@ -41,10 +41,19 @@ const datesSchema = z
 
 // Full locations schema
 export const locationsSchema = datesSchema.and(
-  z.object({
-    startLocation: z.string().min(1, "Start location is required"),
-    endLocation: z.string().min(1, "End location is required"),
-  }),
+  z
+    .object({
+      startLocation: z.string(),
+      endLocation: z.string(),
+    })
+    .refine(
+      (data) =>
+        data.startLocation.trim() !== "" || data.endLocation.trim() !== "",
+      {
+        message: "At least one location is required",
+        path: ["startLocation"],
+      },
+    ),
 );
 
 export type LocationsFormData = z.infer<typeof locationsSchema>;

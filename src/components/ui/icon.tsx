@@ -12,6 +12,8 @@ import CircleDollarIcon from "@/assets/circle-dollar.svg?react";
 import PersonDollyIcon from "@/assets/person-dolly.svg?react";
 import ClockIcon from "@/assets/clock.svg?react";
 import CircleInfoIcon from "@/assets/circle-info.svg?react";
+import MoversTruckIcon from "@/assets/movers-truck.svg?react";
+import MoversOnlyIcon from "@/assets/movers-only.svg?react";
 import { cn } from "@/lib/utils";
 
 const icons = {
@@ -27,6 +29,8 @@ const icons = {
   "person-dolly": PersonDollyIcon,
   clock: ClockIcon,
   "circle-info": CircleInfoIcon,
+  "movers-truck": MoversTruckIcon,
+  "movers-only": MoversOnlyIcon,
 } as const;
 
 type IconName = keyof typeof icons;

@@ -10,7 +10,7 @@
   --gray-500: 215 17% 48%;
   --gray-600: 220 15% 36%;
   --gray-700: 220 18% 28%;
-  --gray-800: 220 22% 18%;
+  --gray-800: 218 15% 21%;
   --gray-900: 220 25% 12%;
 
   /* YELLOW */
@@ -58,7 +58,7 @@
   --popover: 0 0% 100%;
   --popover-foreground: 222.2 84% 4.9%;
   --primary: 222.2 47.4% 11.2%;
-  --primary-foreground: 210 40% 98%;
+  --primary-foreground: var(--gray-800);
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222.2 47.4% 11.2%;
   --muted: 210 40% 96.1%;
@@ -154,6 +154,7 @@
   --color-muted: hsl(var(--muted));
   --color-accent: hsl(var(--accent));
   --color-destructive: hsl(var(--destructive));
+  --color-primary-foreground: hsl(var(--primary-foreground));
 
   --font-family-sans: var(--font-base);
   --font-family-mono: var(--font-mono);
@@ -176,4 +177,15 @@ body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: var(--font-base);
+  font-size: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: hsl(var(--primary-foreground));
+  font-weight: bold;
 }

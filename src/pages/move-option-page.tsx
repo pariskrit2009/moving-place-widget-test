@@ -1,15 +1,10 @@
-import {
-  Truck,
-  Users,
-  Check,
-  CircleDollarSign,
-  Clock,
-  Headset,
-} from "lucide-react";
+import { Check } from "lucide-react";
 import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import { useWidgetStore } from "@/store";
-import type { MoveOption, MoveOptionData } from "@/features/move-option";
+import type { MoveOptionData } from "@/features/move-option";
+import { Icon } from "@/components/ui/icon";
+import { TrustBadge } from "@/features/movers/components";
 
 const MOVE_OPTIONS: MoveOptionData[] = [
   {
@@ -30,38 +25,12 @@ const MOVE_OPTIONS: MoveOptionData[] = [
   },
 ];
 
-const TRUST_BADGES = [
-  {
-    icon: CircleDollarSign,
-    title: "Transparent Pricing",
-    description: "No hidden fees, backed by our Best Price Guarantee",
-  },
-  {
-    icon: Clock,
-    title: "Flexible Scheduling",
-    description:
-      "Free cancellation or rescheduling up to 48 hours before your move",
-  },
-  {
-    icon: Headset,
-    title: "Expert Support",
-    description: "End-to-end help from our Moving Specialists, 7 days a week",
-  },
-];
-
-function OptionIcon({ optionId }: { optionId: MoveOption }) {
-  const iconSize = 30;
-  if (optionId === "movers-truck") {
-    return <Truck size={iconSize} className="text-[#2d6671]" />;
-  }
-  return <Users size={iconSize} className="text-[#2d6671]" />;
-}
-
 function MoveOptionCard({
   option,
   isSelected,
   onSelect,
-}: {
+  disabled,
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   option: MoveOptionData;
   isSelected: boolean;
   onSelect: () => void;
@@ -80,11 +49,11 @@ function MoveOptionCard({
       `}
       role="radio"
       aria-checked={isSelected}
+      disabled={disabled}
     >
       <div className="flex items-center justify-center rounded-full p-3 shrink-0 bg-[#f1faf9]">
-        <OptionIcon optionId={option.id} />
+        <Icon name={option?.id} size={30} />
       </div>
-
       <div className="flex-1 min-w-0 flex flex-col gap-3">
         <div className="flex flex-col">
           <p className="font-bold text-[18px] text-[#2e343e]">{option.label}</p>
@@ -93,16 +62,21 @@ function MoveOptionCard({
           </p>
         </div>
 
-        <div className="border-t border-[#d5dae2] flex items-start justify-between pt-2">
+        <div className="border-t border-[#d5dae2] flex flex-col sm:flex-row items-start justify-between pt-2">
           <div className="flex items-center gap-1">
             <Check size={15} className="text-[#2d6671] shrink-0" />
             <span className="text-sm text-[#2e343e] whitespace-nowrap">
               {option.moversAvailable} movers available
             </span>
           </div>
-          <div className="flex items-center gap-1 text-[#2e343e] text-sm whitespace-nowrap">
-            <span className="font-normal">Starting at </span>
-            <span className="font-bold">${option.startingPrice}</span>
+          <div className="text-[#2e343e] text-sm whitespace-nowrap text-end">
+            <div className="flex items-center gap-1 sm:justify-end ">
+              <span className="font-normal">Starting at </span>
+              <span className="font-bold">${option.startingPrice}</span>
+            </div>
+            {option?.id == "movers-only" && (
+              <p>Includes loading + unloading labor</p>
+            )}
           </div>
         </div>
       </div>
@@ -122,33 +96,17 @@ function MoveOptionCard({
   );
 }
 
-function TrustBadges() {
-  return (
-    <div className="border-t border-[#eceef2] pt-6">
-      <div className="flex gap-6">
-        {TRUST_BADGES.map((badge) => (
-          <div
-            key={badge.title}
-            className="flex-1 flex flex-col items-center gap-1.5 px-4"
-          >
-            <badge.icon size={24} className="text-[#2e343e] shrink-0" />
-            <p className="text-sm font-bold text-[#2e343e] whitespace-nowrap">
-              {badge.title}
-            </p>
-            <p className="text-xs font-normal text-[#2e343e] text-center leading-relaxed">
-              {badge.description}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function MoveOptionPage() {
   const { navigateWithParams } = useNavigateWithParams();
   const selectedMoveOption = useWidgetStore((s) => s.selectedMoveOption);
   const setSelectedMoveOption = useWidgetStore((s) => s.setSelectedMoveOption);
+  const startLocation = useWidgetStore((s) => s.search?.startLocation);
+  const endLocation = useWidgetStore((s) => s.search?.endLocation);
+  const hasDifferentDates = useWidgetStore(
+    (s) => s.movingDateData?.hasDifferentDates,
+  );
+
+  const isDisabled = !(startLocation && endLocation) || !!hasDifferentDates;
 
   const handleContinue = () => {
     if (!selectedMoveOption) return;
@@ -161,24 +119,29 @@ export default function MoveOptionPage() {
 
   return (
     <WidgetLayout onContinue={handleContinue} navigateBack={navigateBack}>
-      <div className="flex-1 flex flex-col">
-        <div className="flex-1 flex flex-col gap-4">
-          <h2 className="text-[28px] font-bold text-[#2e343e] leading-[34px]">
-            Choose a move option
-          </h2>
-
-          <div className="flex flex-col gap-4">
-            {MOVE_OPTIONS.map((option) => (
-              <MoveOptionCard
-                key={option.id}
-                option={option}
-                isSelected={selectedMoveOption === option.id}
-                onSelect={() => setSelectedMoveOption(option.id)}
-              />
-            ))}
+      <div className=" flex flex-col">
+        <div className="flex flex-col space-y-2 ">
+          <h2 className="text-xl leading-6">Choose a move option</h2>
+          <div className="text-sm pb-8 flex gap-4 leading-[18px]">
+            <TrustBadge label=" Up to $10,000 damage protection">
+              <Icon name="shieldcheck" />
+            </TrustBadge>
+            <TrustBadge label="No hidden fees">
+              <Icon name="circle-dollar" />
+            </TrustBadge>
           </div>
+        </div>
 
-          <TrustBadges />
+        <div className="flex flex-col gap-4">
+          {MOVE_OPTIONS.map((option) => (
+            <MoveOptionCard
+              key={option.id}
+              option={option}
+              isSelected={selectedMoveOption === option.id}
+              onSelect={() => setSelectedMoveOption(option.id)}
+              disabled={option?.id == "movers-truck" && isDisabled}
+            />
+          ))}
         </div>
       </div>
     </WidgetLayout>
