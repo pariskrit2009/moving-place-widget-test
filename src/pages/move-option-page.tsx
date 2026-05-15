@@ -152,7 +152,7 @@ export default function MoveOptionPage() {
 
   const handleContinue = () => {
     if (!selectedMoveOption) return;
-    navigateWithParams("/quote");
+    navigateWithParams("/movers");
   };
 
   const navigateBack = () => {

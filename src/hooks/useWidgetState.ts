@@ -5,15 +5,16 @@ const routeStepMap: Record<string, number> = {
   "/location": 2,
   "/moving": 3,
   "/move-option": 4,
-  "/quote": 5,
-  "/customize": 6,
-  "/checkout": 7,
   "/movers": 5,
+  "/all-movers": 5,
+  "/quote": 6,
+  "/customize": 7,
+  "/checkout": 8,
 };
 
 export function useWidgetState() {
   const { pathname } = useLocation();
-  const totalSteps = 7;
+  const totalSteps = 8;
   const currentStep = routeStepMap[pathname] ?? 1;
 
   return {

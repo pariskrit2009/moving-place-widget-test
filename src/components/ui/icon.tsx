@@ -7,6 +7,11 @@ import StarIcon from "@/assets/star.svg?react";
 import TagIcon from "@/assets/tag.svg?react";
 import ShieldCheckIcon from "@/assets/shield-check.svg?react";
 import ExtrasIcon from "@/assets/extras.svg?react";
+import TimerIcon from "@/assets/timer.svg?react";
+import CircleDollarIcon from "@/assets/circle-dollar.svg?react";
+import PersonDollyIcon from "@/assets/person-dolly.svg?react";
+import ClockIcon from "@/assets/clock.svg?react";
+import CircleInfoIcon from "@/assets/circle-info.svg?react";
 import { cn } from "@/lib/utils";
 
 const icons = {
@@ -17,6 +22,11 @@ const icons = {
   star: StarIcon,
   tag: TagIcon,
   extras: ExtrasIcon,
+  timer: TimerIcon,
+  "circle-dollar": CircleDollarIcon,
+  "person-dolly": PersonDollyIcon,
+  clock: ClockIcon,
+  "circle-info": CircleInfoIcon,
 } as const;
 
 type IconName = keyof typeof icons;
