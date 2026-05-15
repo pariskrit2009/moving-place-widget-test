@@ -81,24 +81,16 @@ export default function MoversPage() {
         </div>
 
         <div className="flex items-center gap-6">
-          <TrustBadge
-            icon={
-              <Icon name="shieldcheck" size={20} className="text-gray-800" />
-            }
-            label="Up to $10,000 damage protection"
-          />
-          <TrustBadge
-            icon={
-              <Icon name="circle-dollar" size={24} className="text-gray-800" />
-            }
-            label="No hidden fees"
-          />
-          <TrustBadge
-            icon={
-              <Icon name="shieldcheck" size={20} className="text-gray-800" />
-            }
-            label="Background-checked movers"
-          />
+          <TrustBadge label="Up to $10,000 damage protection">
+            <Icon name="shieldcheck" size={20} className="text-gray-800" />
+          </TrustBadge>
+          <TrustBadge label="No hidden fees">
+            <Icon name="circle-dollar" size={24} className="text-gray-800" />
+          </TrustBadge>
+
+          <TrustBadge label="Background-checked movers">
+            <Icon name="shieldcheck" size={20} className="text-gray-800" />
+          </TrustBadge>
         </div>
       </div>
 

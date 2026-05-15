@@ -23,7 +23,7 @@ export function WidgetLayout({
       <div className="min-h-[600px] max-h-[890px] overflow-auto relative w-full border border-[#b1bbc8] bg-white p-6 flex flex-col">
         <div className="space-y-1"></div>
 
-        <div className="sticky top-0 flex justify-between gap-3 w-full my-4 p-2 bg-white z-20">
+        <div className="sticky top-0 flex justify-between gap-3 w-full my-4  bg-white z-20">
           {navigateBack && (
             <Button
               variant="outline"

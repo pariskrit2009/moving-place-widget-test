@@ -87,8 +87,7 @@ const mockMovers: MoverItem[] = [
       yearsInBusiness: 20,
       rating: 4.1,
       reviews: 96,
-      summary:
-        "One of the most experienced teams in the Bay Area region.",
+      summary: "One of the most experienced teams in the Bay Area region.",
     },
     price: 370,
     priceLabel: "Loading & unloading (no transport)",
@@ -140,28 +139,15 @@ export default function AllMoversPage() {
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <TrustBadge
-              icon={
-                <Icon name="shieldcheck" size={20} className="text-gray-800" />
-              }
-              label="Up to $10,000 damage protection"
-            />
-            <TrustBadge
-              icon={
-                <Icon
-                  name="circle-dollar"
-                  size={24}
-                  className="text-gray-800"
-                />
-              }
-              label="No hidden fees"
-            />
-            <TrustBadge
-              icon={
-                <Icon name="shieldcheck" size={20} className="text-gray-800" />
-              }
-              label="Background-checked movers"
-            />
+            <TrustBadge label="Up to $10,000 damage protection">
+              <Icon name="shieldcheck" size={20} className="text-gray-800" />
+            </TrustBadge>
+            <TrustBadge label="No hidden fees">
+              <Icon name="circle-dollar" size={24} className="text-gray-800" />
+            </TrustBadge>
+            <TrustBadge label="Background-checked movers">
+              <Icon name="shieldcheck" size={20} className="text-gray-800" />
+            </TrustBadge>
           </div>
 
           <SortDropdown activeSort={activeSort} onSortChange={setActiveSort} />
