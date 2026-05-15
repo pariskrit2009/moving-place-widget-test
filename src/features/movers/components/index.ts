@@ -4,3 +4,6 @@ export { CrewSizeColumn } from "./CrewSizeColumn";
 export { TrustBadge } from "./TrustBadge";
 export { SortTabs } from "./SortTabs";
 export type { SortTab } from "./SortTabs";
+export { MoverCard } from "./MoverCard";
+export { SortDropdown } from "./SortDropdown";
+export type { SortOption } from "./SortDropdown";

@@ -8,6 +8,7 @@ import CustomizePage from "../pages/customize-page";
 import CheckoutPage from "../pages/checkout-page";
 import SearchPage from "@/pages/search-page";
 import MoversPage from "@/pages/movers-page";
+import AllMoversPage from "@/pages/all-movers-page";
 
 export const router = createBrowserRouter([
   { path: "/", element: <SearchPage /> },
@@ -18,4 +19,5 @@ export const router = createBrowserRouter([
   { path: "/customize", element: <CustomizePage /> },
   { path: "/checkout", element: <CheckoutPage /> },
   { path: "/movers", element: <MoversPage /> },
+  { path: "/all-movers", element: <AllMoversPage /> },
 ]);

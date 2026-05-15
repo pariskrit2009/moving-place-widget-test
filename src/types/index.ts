@@ -49,4 +49,5 @@ export type PageRoute =
   | "/quote"
   | "/customize"
   | "/checkout"
-  | "/movers";
+  | "/movers"
+  | "/all-movers";

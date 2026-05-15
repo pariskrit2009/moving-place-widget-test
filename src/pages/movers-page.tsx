@@ -3,11 +3,7 @@ import { useNavigateWithParams } from "@/hooks";
 import WidgetLayout from "@/components/layout/WidgetLayout";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
-import {
-  QuoteCard,
-  SortTabs,
-  TrustBadge,
-} from "@/features/movers/components";
+import { QuoteCard, SortTabs, TrustBadge } from "@/features/movers/components";
 import type { SortTab } from "@/features/movers/components";
 import type { MoverQuote } from "@/features/movers/types";
 
@@ -115,7 +111,11 @@ export default function MoversPage() {
 
       <QuoteCard quote={mockQuote} />
 
-      <Button variant="outline" className="rounded-full self-center">
+      <Button
+        variant="outline"
+        className="rounded-full self-center"
+        onClick={() => navigateWithParams("/all-movers")}
+      >
         View all 6 available movers
       </Button>
     </WidgetLayout>

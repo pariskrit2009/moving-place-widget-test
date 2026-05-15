@@ -23,8 +23,16 @@ function getStarStates(rating: number, maxStars: number): StarState[] {
   return states;
 }
 
-export function StarRating({ rating, maxStars = 5, size = "md", showValue = true }: StarRatingProps) {
-  const clamped = Math.min(Math.max(Number.isNaN(rating) ? 0 : rating, 0), maxStars);
+export function StarRating({
+  rating,
+  maxStars = 5,
+  size = "md",
+  showValue = true,
+}: StarRatingProps) {
+  const clamped = Math.min(
+    Math.max(Number.isNaN(rating) ? 0 : rating, 0),
+    maxStars,
+  );
   const states = getStarStates(clamped, maxStars);
   const starSize = size === "sm" ? "size-3" : "size-4";
 

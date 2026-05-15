@@ -25,3 +25,13 @@ export interface MoverQuote {
   topRatedPrice: number;
   services: ServiceItem[];
 }
+
+export interface MoverItem {
+  id: string;
+  provider: Provider;
+  price: number;
+  priceLabel: string;
+  movers: number;
+  hours: number;
+  hasTruck: boolean;
+}
