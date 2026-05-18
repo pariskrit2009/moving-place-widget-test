@@ -15,5 +15,17 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     cors: true,
+    proxy: {
+      "/partner-api": {
+        target: "https://staging.hireahelper.com",
+        changeOrigin: true,
+        secure: true,
+      },
+      "/v1": {
+        target: "https://places.googleapis.com",
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
 });
